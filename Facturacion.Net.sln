@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36705.20 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Facturacion.Net", "Facturacion.Net\Facturacion.Net.vbproj", "{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Debug|x64.ActiveCfg = Debug|x64
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Debug|x64.Build.0 = Debug|x64
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Debug|x86.ActiveCfg = Debug|x86
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Debug|x86.Build.0 = Debug|x86
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Release|x64.ActiveCfg = Release|x64
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Release|x64.Build.0 = Release|x64
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Release|x86.ActiveCfg = Release|x86
+		{A058D0DE-CD5E-4DCF-91DA-FE7B6C4655F7}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87552236-6EC8-4B1E-B85E-98C3B2A459C6}
+	EndGlobalSection
+EndGlobal

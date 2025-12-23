@@ -22,553 +22,559 @@ Partial Class frmNovecc
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.dgvNovedades = New System.Windows.Forms.DataGridView()
-        Me.PanelDatos = New System.Windows.Forms.Panel()
-        Me.txtObservaciones = New System.Windows.Forms.TextBox()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.txtBonificacion = New System.Windows.Forms.TextBox()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.txtNombre = New System.Windows.Forms.TextBox()
-        Me.CmbPostal = New System.Windows.Forms.ComboBox()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.CmbBanco = New System.Windows.Forms.ComboBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.CmbSucursal = New System.Windows.Forms.ComboBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.CmbTipoVenta = New System.Windows.Forms.ComboBox()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.CmbCondicion = New System.Windows.Forms.ComboBox()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.CmbComprobante = New System.Windows.Forms.ComboBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.CmbTipoValor = New System.Windows.Forms.ComboBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.txtNroCheque = New System.Windows.Forms.TextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.txtRegInterno = New System.Windows.Forms.TextBox()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.txtFechaVto = New System.Windows.Forms.TextBox()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.txtMonto = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtFecha = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtNroComprobante = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtNroCupon = New System.Windows.Forms.TextBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.txtNroFactura = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtInterno = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.txtNroCuenta = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.chkAnterior = New System.Windows.Forms.CheckBox()
-        Me.cmdAgregar = New System.Windows.Forms.Button()
-        Me.cmdBorrar = New System.Windows.Forms.Button()
-        Me.cmdModificar = New System.Windows.Forms.Button()
-        Me.cmdAceptar = New System.Windows.Forms.Button()
-        Me.cmdCancelar = New System.Windows.Forms.Button()
-        Me.cmdCerrar = New System.Windows.Forms.Button()
-        CType(Me.dgvNovedades, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelDatos.SuspendLayout()
-        Me.SuspendLayout()
-        '
-        'dgvNovedades
-        '
-        Me.dgvNovedades.AllowUserToAddRows = False
-        Me.dgvNovedades.AllowUserToDeleteRows = False
-        Me.dgvNovedades.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvNovedades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvNovedades.Location = New System.Drawing.Point(12, 12)
-        Me.dgvNovedades.MultiSelect = False
-        Me.dgvNovedades.Name = "dgvNovedades"
-        Me.dgvNovedades.ReadOnly = True
-        Me.dgvNovedades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvNovedades.Size = New System.Drawing.Size(1050, 240)
-        Me.dgvNovedades.TabIndex = 0
-        '
-        'PanelDatos
-        '
-        Me.PanelDatos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PanelDatos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PanelDatos.Controls.Add(Me.txtObservaciones)
-        Me.PanelDatos.Controls.Add(Me.Label19)
-        Me.PanelDatos.Controls.Add(Me.txtBonificacion)
-        Me.PanelDatos.Controls.Add(Me.Label20)
-        Me.PanelDatos.Controls.Add(Me.txtNombre)
-        Me.PanelDatos.Controls.Add(Me.CmbPostal)
-        Me.PanelDatos.Controls.Add(Me.Label13)
-        Me.PanelDatos.Controls.Add(Me.CmbBanco)
-        Me.PanelDatos.Controls.Add(Me.Label11)
-        Me.PanelDatos.Controls.Add(Me.CmbSucursal)
-        Me.PanelDatos.Controls.Add(Me.Label9)
-        Me.PanelDatos.Controls.Add(Me.CmbTipoVenta)
-        Me.PanelDatos.Controls.Add(Me.Label8)
-        Me.PanelDatos.Controls.Add(Me.CmbCondicion)
-        Me.PanelDatos.Controls.Add(Me.Label14)
-        Me.PanelDatos.Controls.Add(Me.CmbComprobante)
-        Me.PanelDatos.Controls.Add(Me.Label6)
-        Me.PanelDatos.Controls.Add(Me.CmbTipoValor)
-        Me.PanelDatos.Controls.Add(Me.Label12)
-        Me.PanelDatos.Controls.Add(Me.txtNroCheque)
-        Me.PanelDatos.Controls.Add(Me.Label18)
-        Me.PanelDatos.Controls.Add(Me.txtRegInterno)
-        Me.PanelDatos.Controls.Add(Me.Label17)
-        Me.PanelDatos.Controls.Add(Me.txtFechaVto)
-        Me.PanelDatos.Controls.Add(Me.Label15)
-        Me.PanelDatos.Controls.Add(Me.txtMonto)
-        Me.PanelDatos.Controls.Add(Me.Label5)
-        Me.PanelDatos.Controls.Add(Me.txtFecha)
-        Me.PanelDatos.Controls.Add(Me.Label4)
-        Me.PanelDatos.Controls.Add(Me.txtNroComprobante)
-        Me.PanelDatos.Controls.Add(Me.Label3)
-        Me.PanelDatos.Controls.Add(Me.txtNroCupon)
-        Me.PanelDatos.Controls.Add(Me.Label16)
-        Me.PanelDatos.Controls.Add(Me.txtNroFactura)
-        Me.PanelDatos.Controls.Add(Me.Label1)
-        Me.PanelDatos.Controls.Add(Me.txtInterno)
-        Me.PanelDatos.Controls.Add(Me.Label7)
-        Me.PanelDatos.Controls.Add(Me.txtNroCuenta)
-        Me.PanelDatos.Controls.Add(Me.Label2)
-        Me.PanelDatos.Location = New System.Drawing.Point(12, 260)
-        Me.PanelDatos.Name = "PanelDatos"
-        Me.PanelDatos.Size = New System.Drawing.Size(1050, 200)
-        Me.PanelDatos.TabIndex = 1
-        '
-        'txtObservaciones
-        '
-        Me.txtObservaciones.Location = New System.Drawing.Point(120, 200)
-        Me.txtObservaciones.Name = "txtObservaciones"
-        Me.txtObservaciones.Size = New System.Drawing.Size(530, 23)
-        Me.txtObservaciones.TabIndex = 47
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(10, 203)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(84, 15)
-        Me.Label19.TabIndex = 48
-        Me.Label19.Text = "Observaciones"
-        '
-        'txtBonificacion
-        '
-        Me.txtBonificacion.Location = New System.Drawing.Point(780, 200)
-        Me.txtBonificacion.Name = "txtBonificacion"
-        Me.txtBonificacion.Size = New System.Drawing.Size(240, 23)
-        Me.txtBonificacion.TabIndex = 45
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(690, 203)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(73, 15)
-        Me.Label20.TabIndex = 46
-        Me.Label20.Text = "Bonificacion"
-        '
-        'txtNombre
-        '
-        Me.txtNombre.Location = New System.Drawing.Point(340, 20)
-        Me.txtNombre.Name = "txtNombre"
-        Me.txtNombre.ReadOnly = True
-        Me.txtNombre.Size = New System.Drawing.Size(310, 23)
-        Me.txtNombre.TabIndex = 44
-        '
-        'CmbPostal
-        '
-        Me.CmbPostal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbPostal.FormattingEnabled = True
-        Me.CmbPostal.Location = New System.Drawing.Point(780, 110)
-        Me.CmbPostal.Name = "CmbPostal"
-        Me.CmbPostal.Size = New System.Drawing.Size(240, 23)
-        Me.CmbPostal.TabIndex = 43
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(690, 113)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(64, 15)
-        Me.Label13.TabIndex = 32
-        Me.Label13.Text = "Cod.Postal"
-        '
-        'CmbBanco
-        '
-        Me.CmbBanco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBanco.FormattingEnabled = True
-        Me.CmbBanco.Location = New System.Drawing.Point(780, 80)
-        Me.CmbBanco.Name = "CmbBanco"
-        Me.CmbBanco.Size = New System.Drawing.Size(240, 23)
-        Me.CmbBanco.TabIndex = 42
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(690, 83)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(40, 15)
-        Me.Label11.TabIndex = 35
-        Me.Label11.Text = "Banco"
-        '
-        'CmbSucursal
-        '
-        Me.CmbSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbSucursal.FormattingEnabled = True
-        Me.CmbSucursal.Location = New System.Drawing.Point(780, 50)
-        Me.CmbSucursal.Name = "CmbSucursal"
-        Me.CmbSucursal.Size = New System.Drawing.Size(240, 23)
-        Me.CmbSucursal.TabIndex = 41
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(690, 53)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(51, 15)
-        Me.Label9.TabIndex = 31
-        Me.Label9.Text = "Sucursal"
-        '
-        'CmbTipoVenta
-        '
-        Me.CmbTipoVenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbTipoVenta.FormattingEnabled = True
-        Me.CmbTipoVenta.Location = New System.Drawing.Point(780, 20)
-        Me.CmbTipoVenta.Name = "CmbTipoVenta"
-        Me.CmbTipoVenta.Size = New System.Drawing.Size(240, 23)
-        Me.CmbTipoVenta.TabIndex = 40
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(690, 23)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(65, 15)
-        Me.Label8.TabIndex = 21
-        Me.Label8.Text = "Tipo Venta:"
-        '
-        'CmbCondicion
-        '
-        Me.CmbCondicion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbCondicion.FormattingEnabled = True
-        Me.CmbCondicion.Location = New System.Drawing.Point(780, 140)
-        Me.CmbCondicion.Name = "CmbCondicion"
-        Me.CmbCondicion.Size = New System.Drawing.Size(240, 23)
-        Me.CmbCondicion.TabIndex = 39
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(690, 143)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(65, 15)
-        Me.Label14.TabIndex = 23
-        Me.Label14.Text = "Condicion:"
-        '
-        'CmbComprobante
-        '
-        Me.CmbComprobante.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbComprobante.FormattingEnabled = True
-        Me.CmbComprobante.Location = New System.Drawing.Point(450, 140)
-        Me.CmbComprobante.Name = "CmbComprobante"
-        Me.CmbComprobante.Size = New System.Drawing.Size(200, 23)
-        Me.CmbComprobante.TabIndex = 38
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(340, 143)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(81, 15)
-        Me.Label6.TabIndex = 19
-        Me.Label6.Text = "Comprobante"
-        '
-        'CmbTipoValor
-        '
-        Me.CmbTipoValor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbTipoValor.FormattingEnabled = True
-        Me.CmbTipoValor.Location = New System.Drawing.Point(450, 110)
-        Me.CmbTipoValor.Name = "CmbTipoValor"
-        Me.CmbTipoValor.Size = New System.Drawing.Size(200, 23)
-        Me.CmbTipoValor.TabIndex = 37
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(340, 113)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(59, 15)
-        Me.Label12.TabIndex = 26
-        Me.Label12.Text = "Tipo Valor"
-        '
-        'txtNroCheque
-        '
-        Me.txtNroCheque.Location = New System.Drawing.Point(780, 170)
-        Me.txtNroCheque.Name = "txtNroCheque"
-        Me.txtNroCheque.Size = New System.Drawing.Size(240, 23)
-        Me.txtNroCheque.TabIndex = 34
-        Me.txtNroCheque.Visible = False
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(690, 173)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(71, 15)
-        Me.Label18.TabIndex = 33
-        Me.Label18.Text = "Nro.Cheque"
-        Me.Label18.Visible = False
-        '
-        'txtRegInterno
-        '
-        Me.txtRegInterno.Location = New System.Drawing.Point(450, 80)
-        Me.txtRegInterno.Name = "txtRegInterno"
-        Me.txtRegInterno.Size = New System.Drawing.Size(200, 23)
-        Me.txtRegInterno.TabIndex = 29
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(340, 83)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(67, 15)
-        Me.Label17.TabIndex = 30
-        Me.Label17.Text = "Reg.Interno"
-        '
-        'txtFechaVto
-        '
-        Me.txtFechaVto.Location = New System.Drawing.Point(450, 50)
-        Me.txtFechaVto.Name = "txtFechaVto"
-        Me.txtFechaVto.Size = New System.Drawing.Size(200, 23)
-        Me.txtFechaVto.TabIndex = 27
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(340, 53)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(62, 15)
-        Me.Label15.TabIndex = 28
-        Me.Label15.Text = "Fecha vto."
-        '
-        'txtMonto
-        '
-        Me.txtMonto.Location = New System.Drawing.Point(120, 170)
-        Me.txtMonto.Name = "txtMonto"
-        Me.txtMonto.Size = New System.Drawing.Size(190, 23)
-        Me.txtMonto.TabIndex = 6
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(10, 173)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(43, 15)
-        Me.Label5.TabIndex = 18
-        Me.Label5.Text = "Monto"
-        '
-        'txtFecha
-        '
-        Me.txtFecha.Location = New System.Drawing.Point(120, 140)
-        Me.txtFecha.Name = "txtFecha"
-        Me.txtFecha.Size = New System.Drawing.Size(190, 23)
-        Me.txtFecha.TabIndex = 5
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(10, 143)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(38, 15)
-        Me.Label4.TabIndex = 17
-        Me.Label4.Text = "Fecha"
-        '
-        'txtNroComprobante
-        '
-        Me.txtNroComprobante.Location = New System.Drawing.Point(120, 110)
-        Me.txtNroComprobante.Name = "txtNroComprobante"
-        Me.txtNroComprobante.Size = New System.Drawing.Size(190, 23)
-        Me.txtNroComprobante.TabIndex = 4
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 113)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(72, 15)
-        Me.Label3.TabIndex = 16
-        Me.Label3.Text = "Nro.Compte"
-        '
-        'txtNroCupon
-        '
-        Me.txtNroCupon.Location = New System.Drawing.Point(120, 80)
-        Me.txtNroCupon.Name = "txtNroCupon"
-        Me.txtNroCupon.Size = New System.Drawing.Size(190, 23)
-        Me.txtNroCupon.TabIndex = 3
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(10, 83)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(65, 15)
-        Me.Label16.TabIndex = 24
-        Me.Label16.Text = "Nro.Cupon"
-        '
-        'txtNroFactura
-        '
-        Me.txtNroFactura.Location = New System.Drawing.Point(120, 50)
-        Me.txtNroFactura.Name = "txtNroFactura"
-        Me.txtNroFactura.Size = New System.Drawing.Size(190, 23)
-        Me.txtNroFactura.TabIndex = 2
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(10, 53)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(69, 15)
-        Me.Label1.TabIndex = 25
-        Me.Label1.Text = "Nro.Factura"
-        '
-        'txtInterno
-        '
-        Me.txtInterno.Location = New System.Drawing.Point(450, 170)
-        Me.txtInterno.Name = "txtInterno"
-        Me.txtInterno.Size = New System.Drawing.Size(200, 23)
-        Me.txtInterno.TabIndex = 7
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(340, 173)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(69, 15)
-        Me.Label7.TabIndex = 20
-        Me.Label7.Text = "Imp.Interno"
-        '
-        'txtNroCuenta
-        '
-        Me.txtNroCuenta.Location = New System.Drawing.Point(120, 20)
-        Me.txtNroCuenta.Name = "txtNroCuenta"
-        Me.txtNroCuenta.Size = New System.Drawing.Size(190, 23)
-        Me.txtNroCuenta.TabIndex = 1
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(10, 23)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(45, 15)
-        Me.Label2.TabIndex = 15
-        Me.Label2.Text = "Cuenta"
-        '
-        'chkAnterior
-        '
-        Me.chkAnterior.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkAnterior.AutoSize = True
-        Me.chkAnterior.Location = New System.Drawing.Point(12, 470)
-        Me.chkAnterior.Name = "chkAnterior"
-        Me.chkAnterior.Size = New System.Drawing.Size(69, 19)
-        Me.chkAnterior.TabIndex = 44
-        Me.chkAnterior.Text = "Anterior"
-        Me.chkAnterior.UseVisualStyleBackColor = True
-        '
-        'cmdAgregar
-        '
-        Me.cmdAgregar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdAgregar.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.cmdAgregar.Location = New System.Drawing.Point(420, 466)
-        Me.cmdAgregar.Name = "cmdAgregar"
-        Me.cmdAgregar.Size = New System.Drawing.Size(100, 30)
-        Me.cmdAgregar.TabIndex = 13
-        Me.cmdAgregar.Text = "&Agregar"
-        Me.cmdAgregar.UseVisualStyleBackColor = True
-        '
-        'cmdBorrar
-        '
-        Me.cmdBorrar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdBorrar.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.cmdBorrar.Location = New System.Drawing.Point(530, 466)
-        Me.cmdBorrar.Name = "cmdBorrar"
-        Me.cmdBorrar.Size = New System.Drawing.Size(100, 30)
-        Me.cmdBorrar.TabIndex = 12
-        Me.cmdBorrar.Text = "&Borrar"
-        Me.cmdBorrar.UseVisualStyleBackColor = True
-        '
-        'cmdModificar
-        '
-        Me.cmdModificar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdModificar.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.cmdModificar.Location = New System.Drawing.Point(640, 466)
-        Me.cmdModificar.Name = "cmdModificar"
-        Me.cmdModificar.Size = New System.Drawing.Size(100, 30)
-        Me.cmdModificar.TabIndex = 10
-        Me.cmdModificar.Text = "&Modificar"
-        Me.cmdModificar.UseVisualStyleBackColor = True
-        '
-        'cmdAceptar
-        '
-        Me.cmdAceptar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdAceptar.Enabled = False
-        Me.cmdAceptar.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.cmdAceptar.Location = New System.Drawing.Point(750, 466)
-        Me.cmdAceptar.Name = "cmdAceptar"
-        Me.cmdAceptar.Size = New System.Drawing.Size(100, 30)
-        Me.cmdAceptar.TabIndex = 11
-        Me.cmdAceptar.Text = "Ac&eptar"
-        Me.cmdAceptar.UseVisualStyleBackColor = True
-        '
-        'cmdCancelar
-        '
-        Me.cmdCancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdCancelar.Enabled = False
-        Me.cmdCancelar.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.cmdCancelar.Location = New System.Drawing.Point(860, 466)
-        Me.cmdCancelar.Name = "cmdCancelar"
-        Me.cmdCancelar.Size = New System.Drawing.Size(100, 30)
-        Me.cmdCancelar.TabIndex = 9
-        Me.cmdCancelar.Text = "&Cancelar"
-        Me.cmdCancelar.UseVisualStyleBackColor = True
-        '
-        'cmdCerrar
-        '
-        Me.cmdCerrar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdCerrar.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.cmdCerrar.Location = New System.Drawing.Point(970, 466)
-        Me.cmdCerrar.Name = "cmdCerrar"
-        Me.cmdCerrar.Size = New System.Drawing.Size(90, 30)
-        Me.cmdCerrar.TabIndex = 14
-        Me.cmdCerrar.Text = "C&errar"
-        Me.cmdCerrar.UseVisualStyleBackColor = True
-        '
-        'frmNovecc
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1074, 508)
-        Me.Controls.Add(Me.cmdCerrar)
-        Me.Controls.Add(Me.cmdCancelar)
-        Me.Controls.Add(Me.cmdAceptar)
-        Me.Controls.Add(Me.cmdModificar)
-        Me.Controls.Add(Me.cmdBorrar)
-        Me.Controls.Add(Me.cmdAgregar)
-        Me.Controls.Add(Me.chkAnterior)
-        Me.Controls.Add(Me.PanelDatos)
-        Me.Controls.Add(Me.dgvNovedades)
-        Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Name = "frmNovecc"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Novedades Cuentas Corrientes"
-        CType(Me.dgvNovedades, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelDatos.ResumeLayout(False)
-        Me.PanelDatos.PerformLayout()
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        dgvNovedades = New DataGridView()
+        PanelDatos = New Panel()
+        TxtCP = New TextBox()
+        txtObservaciones = New TextBox()
+        Label19 = New Label()
+        txtBonificacion = New TextBox()
+        Label20 = New Label()
+        txtPV = New TextBox()
+        Label13 = New Label()
+        CmbBanco = New ComboBox()
+        Label11 = New Label()
+        CmbSucursal = New ComboBox()
+        Label9 = New Label()
+        CmbTipoVenta = New ComboBox()
+        Label8 = New Label()
+        CmbCondicion = New ComboBox()
+        Label14 = New Label()
+        CmbComprobante = New ComboBox()
+        Label6 = New Label()
+        CmbTipoValor = New ComboBox()
+        Label12 = New Label()
+        txtNroCheque = New TextBox()
+        Label18 = New Label()
+        txtRegInterno = New TextBox()
+        Label17 = New Label()
+        txtFechaVto = New TextBox()
+        Label15 = New Label()
+        txtMonto = New TextBox()
+        Label5 = New Label()
+        txtFecha = New TextBox()
+        Label4 = New Label()
+        txtNroComprobante = New TextBox()
+        Label3 = New Label()
+        txtNroCupon = New TextBox()
+        Label16 = New Label()
+        txtNroFactura = New TextBox()
+        Label1 = New Label()
+        txtInterno = New TextBox()
+        Label7 = New Label()
+        txtNroCuenta = New TextBox()
+        Label2 = New Label()
+        chkAnterior = New CheckBox()
+        cmdAgregar = New Button()
+        cmdBorrar = New Button()
+        cmdModificar = New Button()
+        cmdAceptar = New Button()
+        cmdCancelar = New Button()
+        cmdCerrar = New Button()
+        Label10 = New Label()
+        CType(dgvNovedades, ComponentModel.ISupportInitialize).BeginInit()
+        PanelDatos.SuspendLayout()
+        SuspendLayout()
+        ' 
+        ' dgvNovedades
+        ' 
+        dgvNovedades.AllowUserToAddRows = False
+        dgvNovedades.AllowUserToDeleteRows = False
+        dgvNovedades.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        dgvNovedades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvNovedades.Location = New Point(12, 12)
+        dgvNovedades.MultiSelect = False
+        dgvNovedades.Name = "dgvNovedades"
+        dgvNovedades.ReadOnly = True
+        dgvNovedades.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvNovedades.Size = New Size(1050, 240)
+        dgvNovedades.TabIndex = 0
+        ' 
+        ' PanelDatos
+        ' 
+        PanelDatos.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        PanelDatos.BorderStyle = BorderStyle.FixedSingle
+        PanelDatos.Controls.Add(Label10)
+        PanelDatos.Controls.Add(TxtCP)
+        PanelDatos.Controls.Add(txtObservaciones)
+        PanelDatos.Controls.Add(Label19)
+        PanelDatos.Controls.Add(txtBonificacion)
+        PanelDatos.Controls.Add(Label20)
+        PanelDatos.Controls.Add(txtPV)
+        PanelDatos.Controls.Add(Label13)
+        PanelDatos.Controls.Add(CmbBanco)
+        PanelDatos.Controls.Add(Label11)
+        PanelDatos.Controls.Add(CmbSucursal)
+        PanelDatos.Controls.Add(Label9)
+        PanelDatos.Controls.Add(CmbTipoVenta)
+        PanelDatos.Controls.Add(Label8)
+        PanelDatos.Controls.Add(CmbCondicion)
+        PanelDatos.Controls.Add(Label14)
+        PanelDatos.Controls.Add(CmbComprobante)
+        PanelDatos.Controls.Add(Label6)
+        PanelDatos.Controls.Add(CmbTipoValor)
+        PanelDatos.Controls.Add(Label12)
+        PanelDatos.Controls.Add(txtNroCheque)
+        PanelDatos.Controls.Add(Label18)
+        PanelDatos.Controls.Add(txtRegInterno)
+        PanelDatos.Controls.Add(Label17)
+        PanelDatos.Controls.Add(txtFechaVto)
+        PanelDatos.Controls.Add(Label15)
+        PanelDatos.Controls.Add(txtMonto)
+        PanelDatos.Controls.Add(Label5)
+        PanelDatos.Controls.Add(txtFecha)
+        PanelDatos.Controls.Add(Label4)
+        PanelDatos.Controls.Add(txtNroComprobante)
+        PanelDatos.Controls.Add(Label3)
+        PanelDatos.Controls.Add(txtNroCupon)
+        PanelDatos.Controls.Add(Label16)
+        PanelDatos.Controls.Add(txtNroFactura)
+        PanelDatos.Controls.Add(Label1)
+        PanelDatos.Controls.Add(txtInterno)
+        PanelDatos.Controls.Add(Label7)
+        PanelDatos.Controls.Add(txtNroCuenta)
+        PanelDatos.Controls.Add(Label2)
+        PanelDatos.Location = New Point(12, 260)
+        PanelDatos.Name = "PanelDatos"
+        PanelDatos.Size = New Size(1050, 200)
+        PanelDatos.TabIndex = 1
+        ' 
+        ' TxtCP
+        ' 
+        TxtCP.Location = New Point(780, 140)
+        TxtCP.Name = "TxtCP"
+        TxtCP.Size = New Size(240, 23)
+        TxtCP.TabIndex = 49
+        ' 
+        ' txtObservaciones
+        ' 
+        txtObservaciones.Location = New Point(120, 200)
+        txtObservaciones.Name = "txtObservaciones"
+        txtObservaciones.Size = New Size(530, 23)
+        txtObservaciones.TabIndex = 47
+        ' 
+        ' Label19
+        ' 
+        Label19.AutoSize = True
+        Label19.Location = New Point(10, 203)
+        Label19.Name = "Label19"
+        Label19.Size = New Size(84, 15)
+        Label19.TabIndex = 48
+        Label19.Text = "Observaciones"
+        ' 
+        ' txtBonificacion
+        ' 
+        txtBonificacion.Location = New Point(780, 200)
+        txtBonificacion.Name = "txtBonificacion"
+        txtBonificacion.Size = New Size(240, 23)
+        txtBonificacion.TabIndex = 45
+        ' 
+        ' Label20
+        ' 
+        Label20.AutoSize = True
+        Label20.Location = New Point(690, 203)
+        Label20.Name = "Label20"
+        Label20.Size = New Size(73, 15)
+        Label20.TabIndex = 46
+        Label20.Text = "Bonificacion"
+        ' 
+        ' txtPV
+        ' 
+        txtPV.BackColor = Color.White
+        txtPV.Location = New Point(450, 20)
+        txtPV.Name = "txtPV"
+        txtPV.ReadOnly = True
+        txtPV.Size = New Size(200, 23)
+        txtPV.TabIndex = 44
+        ' 
+        ' Label13
+        ' 
+        Label13.AutoSize = True
+        Label13.Location = New Point(690, 142)
+        Label13.Name = "Label13"
+        Label13.Size = New Size(64, 15)
+        Label13.TabIndex = 32
+        Label13.Text = "Cod.Postal"
+        ' 
+        ' CmbBanco
+        ' 
+        CmbBanco.DropDownStyle = ComboBoxStyle.DropDownList
+        CmbBanco.FormattingEnabled = True
+        CmbBanco.Location = New Point(780, 80)
+        CmbBanco.Name = "CmbBanco"
+        CmbBanco.Size = New Size(240, 23)
+        CmbBanco.TabIndex = 42
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Location = New Point(690, 83)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(40, 15)
+        Label11.TabIndex = 35
+        Label11.Text = "Banco"
+        ' 
+        ' CmbSucursal
+        ' 
+        CmbSucursal.DropDownStyle = ComboBoxStyle.DropDownList
+        CmbSucursal.FormattingEnabled = True
+        CmbSucursal.Location = New Point(780, 50)
+        CmbSucursal.Name = "CmbSucursal"
+        CmbSucursal.Size = New Size(240, 23)
+        CmbSucursal.TabIndex = 41
+        ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Location = New Point(690, 53)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(51, 15)
+        Label9.TabIndex = 31
+        Label9.Text = "Sucursal"
+        ' 
+        ' CmbTipoVenta
+        ' 
+        CmbTipoVenta.DropDownStyle = ComboBoxStyle.DropDownList
+        CmbTipoVenta.FormattingEnabled = True
+        CmbTipoVenta.Location = New Point(780, 20)
+        CmbTipoVenta.Name = "CmbTipoVenta"
+        CmbTipoVenta.Size = New Size(240, 23)
+        CmbTipoVenta.TabIndex = 40
+        ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Location = New Point(690, 23)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(66, 15)
+        Label8.TabIndex = 21
+        Label8.Text = "Tipo Venta:"
+        ' 
+        ' CmbCondicion
+        ' 
+        CmbCondicion.DropDownStyle = ComboBoxStyle.DropDownList
+        CmbCondicion.FormattingEnabled = True
+        CmbCondicion.Location = New Point(780, 109)
+        CmbCondicion.Name = "CmbCondicion"
+        CmbCondicion.Size = New Size(240, 23)
+        CmbCondicion.TabIndex = 39
+        ' 
+        ' Label14
+        ' 
+        Label14.AutoSize = True
+        Label14.Location = New Point(690, 112)
+        Label14.Name = "Label14"
+        Label14.Size = New Size(65, 15)
+        Label14.TabIndex = 23
+        Label14.Text = "Condicion:"
+        ' 
+        ' CmbComprobante
+        ' 
+        CmbComprobante.DropDownStyle = ComboBoxStyle.DropDownList
+        CmbComprobante.FormattingEnabled = True
+        CmbComprobante.Location = New Point(450, 140)
+        CmbComprobante.Name = "CmbComprobante"
+        CmbComprobante.Size = New Size(200, 23)
+        CmbComprobante.TabIndex = 38
+        ' 
+        ' Label6
+        ' 
+        Label6.AutoSize = True
+        Label6.Location = New Point(340, 143)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(81, 15)
+        Label6.TabIndex = 19
+        Label6.Text = "Comprobante"
+        ' 
+        ' CmbTipoValor
+        ' 
+        CmbTipoValor.DropDownStyle = ComboBoxStyle.DropDownList
+        CmbTipoValor.FormattingEnabled = True
+        CmbTipoValor.Location = New Point(450, 110)
+        CmbTipoValor.Name = "CmbTipoValor"
+        CmbTipoValor.Size = New Size(200, 23)
+        CmbTipoValor.TabIndex = 37
+        ' 
+        ' Label12
+        ' 
+        Label12.AutoSize = True
+        Label12.Location = New Point(340, 113)
+        Label12.Name = "Label12"
+        Label12.Size = New Size(60, 15)
+        Label12.TabIndex = 26
+        Label12.Text = "Tipo Valor"
+        ' 
+        ' txtNroCheque
+        ' 
+        txtNroCheque.Location = New Point(780, 170)
+        txtNroCheque.Name = "txtNroCheque"
+        txtNroCheque.Size = New Size(240, 23)
+        txtNroCheque.TabIndex = 34
+        ' 
+        ' Label18
+        ' 
+        Label18.AutoSize = True
+        Label18.Location = New Point(690, 173)
+        Label18.Name = "Label18"
+        Label18.Size = New Size(71, 15)
+        Label18.TabIndex = 33
+        Label18.Text = "Nro.Cheque"
+        Label18.Visible = False
+        ' 
+        ' txtRegInterno
+        ' 
+        txtRegInterno.Location = New Point(450, 80)
+        txtRegInterno.Name = "txtRegInterno"
+        txtRegInterno.Size = New Size(200, 23)
+        txtRegInterno.TabIndex = 29
+        ' 
+        ' Label17
+        ' 
+        Label17.AutoSize = True
+        Label17.Location = New Point(340, 83)
+        Label17.Name = "Label17"
+        Label17.Size = New Size(68, 15)
+        Label17.TabIndex = 30
+        Label17.Text = "Reg.Interno"
+        ' 
+        ' txtFechaVto
+        ' 
+        txtFechaVto.Location = New Point(450, 50)
+        txtFechaVto.Name = "txtFechaVto"
+        txtFechaVto.Size = New Size(200, 23)
+        txtFechaVto.TabIndex = 27
+        ' 
+        ' Label15
+        ' 
+        Label15.AutoSize = True
+        Label15.Location = New Point(340, 53)
+        Label15.Name = "Label15"
+        Label15.Size = New Size(61, 15)
+        Label15.TabIndex = 28
+        Label15.Text = "Fecha vto."
+        ' 
+        ' txtMonto
+        ' 
+        txtMonto.Location = New Point(120, 170)
+        txtMonto.Name = "txtMonto"
+        txtMonto.Size = New Size(190, 23)
+        txtMonto.TabIndex = 6
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Location = New Point(10, 173)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(43, 15)
+        Label5.TabIndex = 18
+        Label5.Text = "Monto"
+        ' 
+        ' txtFecha
+        ' 
+        txtFecha.Location = New Point(120, 140)
+        txtFecha.Name = "txtFecha"
+        txtFecha.Size = New Size(190, 23)
+        txtFecha.TabIndex = 5
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Location = New Point(10, 143)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(38, 15)
+        Label4.TabIndex = 17
+        Label4.Text = "Fecha"
+        ' 
+        ' txtNroComprobante
+        ' 
+        txtNroComprobante.Location = New Point(120, 110)
+        txtNroComprobante.Name = "txtNroComprobante"
+        txtNroComprobante.Size = New Size(190, 23)
+        txtNroComprobante.TabIndex = 4
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Location = New Point(10, 113)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(73, 15)
+        Label3.TabIndex = 16
+        Label3.Text = "Nro.Compte"
+        ' 
+        ' txtNroCupon
+        ' 
+        txtNroCupon.Location = New Point(120, 80)
+        txtNroCupon.Name = "txtNroCupon"
+        txtNroCupon.Size = New Size(190, 23)
+        txtNroCupon.TabIndex = 3
+        ' 
+        ' Label16
+        ' 
+        Label16.AutoSize = True
+        Label16.Location = New Point(10, 83)
+        Label16.Name = "Label16"
+        Label16.Size = New Size(66, 15)
+        Label16.TabIndex = 24
+        Label16.Text = "Nro.Cupon"
+        ' 
+        ' txtNroFactura
+        ' 
+        txtNroFactura.Location = New Point(120, 50)
+        txtNroFactura.Name = "txtNroFactura"
+        txtNroFactura.Size = New Size(190, 23)
+        txtNroFactura.TabIndex = 2
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Location = New Point(10, 53)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(69, 15)
+        Label1.TabIndex = 25
+        Label1.Text = "Nro.Factura"
+        ' 
+        ' txtInterno
+        ' 
+        txtInterno.Location = New Point(450, 170)
+        txtInterno.Name = "txtInterno"
+        txtInterno.Size = New Size(200, 23)
+        txtInterno.TabIndex = 7
+        ' 
+        ' Label7
+        ' 
+        Label7.AutoSize = True
+        Label7.Location = New Point(340, 173)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(69, 15)
+        Label7.TabIndex = 20
+        Label7.Text = "Imp.Interno"
+        ' 
+        ' txtNroCuenta
+        ' 
+        txtNroCuenta.Location = New Point(120, 20)
+        txtNroCuenta.Name = "txtNroCuenta"
+        txtNroCuenta.Size = New Size(190, 23)
+        txtNroCuenta.TabIndex = 1
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Location = New Point(10, 23)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(45, 15)
+        Label2.TabIndex = 15
+        Label2.Text = "Cuenta"
+        ' 
+        ' chkAnterior
+        ' 
+        chkAnterior.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        chkAnterior.AutoSize = True
+        chkAnterior.Location = New Point(12, 470)
+        chkAnterior.Name = "chkAnterior"
+        chkAnterior.Size = New Size(69, 19)
+        chkAnterior.TabIndex = 44
+        chkAnterior.Text = "Anterior"
+        chkAnterior.UseVisualStyleBackColor = True
+        ' 
+        ' cmdAgregar
+        ' 
+        cmdAgregar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        cmdAgregar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        cmdAgregar.Location = New Point(420, 466)
+        cmdAgregar.Name = "cmdAgregar"
+        cmdAgregar.Size = New Size(100, 30)
+        cmdAgregar.TabIndex = 13
+        cmdAgregar.Text = "&Agregar"
+        cmdAgregar.UseVisualStyleBackColor = True
+        ' 
+        ' cmdBorrar
+        ' 
+        cmdBorrar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        cmdBorrar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        cmdBorrar.Location = New Point(530, 466)
+        cmdBorrar.Name = "cmdBorrar"
+        cmdBorrar.Size = New Size(100, 30)
+        cmdBorrar.TabIndex = 12
+        cmdBorrar.Text = "&Borrar"
+        cmdBorrar.UseVisualStyleBackColor = True
+        ' 
+        ' cmdModificar
+        ' 
+        cmdModificar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        cmdModificar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        cmdModificar.Location = New Point(640, 466)
+        cmdModificar.Name = "cmdModificar"
+        cmdModificar.Size = New Size(100, 30)
+        cmdModificar.TabIndex = 10
+        cmdModificar.Text = "&Modificar"
+        cmdModificar.UseVisualStyleBackColor = True
+        ' 
+        ' cmdAceptar
+        ' 
+        cmdAceptar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        cmdAceptar.Enabled = False
+        cmdAceptar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        cmdAceptar.Location = New Point(750, 466)
+        cmdAceptar.Name = "cmdAceptar"
+        cmdAceptar.Size = New Size(100, 30)
+        cmdAceptar.TabIndex = 11
+        cmdAceptar.Text = "Ac&eptar"
+        cmdAceptar.UseVisualStyleBackColor = True
+        ' 
+        ' cmdCancelar
+        ' 
+        cmdCancelar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        cmdCancelar.Enabled = False
+        cmdCancelar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        cmdCancelar.Location = New Point(860, 466)
+        cmdCancelar.Name = "cmdCancelar"
+        cmdCancelar.Size = New Size(100, 30)
+        cmdCancelar.TabIndex = 9
+        cmdCancelar.Text = "&Cancelar"
+        cmdCancelar.UseVisualStyleBackColor = True
+        ' 
+        ' cmdCerrar
+        ' 
+        cmdCerrar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        cmdCerrar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        cmdCerrar.Location = New Point(970, 466)
+        cmdCerrar.Name = "cmdCerrar"
+        cmdCerrar.Size = New Size(90, 30)
+        cmdCerrar.TabIndex = 14
+        cmdCerrar.Text = "C&errar"
+        cmdCerrar.UseVisualStyleBackColor = True
+        ' 
+        ' Label10
+        ' 
+        Label10.AutoSize = True
+        Label10.Location = New Point(340, 23)
+        Label10.Name = "Label10"
+        Label10.Size = New Size(87, 15)
+        Label10.TabIndex = 50
+        Label10.Text = "Punto de Venta"
+        ' 
+        ' frmNovecc
+        ' 
+        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(1074, 508)
+        Controls.Add(cmdCerrar)
+        Controls.Add(cmdCancelar)
+        Controls.Add(cmdAceptar)
+        Controls.Add(cmdModificar)
+        Controls.Add(cmdBorrar)
+        Controls.Add(cmdAgregar)
+        Controls.Add(chkAnterior)
+        Controls.Add(PanelDatos)
+        Controls.Add(dgvNovedades)
+        Font = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Name = "frmNovecc"
+        StartPosition = FormStartPosition.CenterScreen
+        Text = "Novedades Cuentas Corrientes"
+        CType(dgvNovedades, ComponentModel.ISupportInitialize).EndInit()
+        PanelDatos.ResumeLayout(False)
+        PanelDatos.PerformLayout()
+        ResumeLayout(False)
+        PerformLayout()
 
     End Sub
 
@@ -598,7 +604,6 @@ Partial Class frmNovecc
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents txtFechaVto As System.Windows.Forms.TextBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents CmbPostal As System.Windows.Forms.ComboBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents CmbBanco As System.Windows.Forms.ComboBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
@@ -608,7 +613,7 @@ Partial Class frmNovecc
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents CmbCondicion As System.Windows.Forms.ComboBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents txtNombre As System.Windows.Forms.TextBox
+    Friend WithEvents txtPV As System.Windows.Forms.TextBox
     Friend WithEvents txtBonificacion As System.Windows.Forms.TextBox
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents txtObservaciones As System.Windows.Forms.TextBox
@@ -620,4 +625,6 @@ Partial Class frmNovecc
     Friend WithEvents cmdAceptar As System.Windows.Forms.Button
     Friend WithEvents cmdCancelar As System.Windows.Forms.Button
     Friend WithEvents cmdCerrar As System.Windows.Forms.Button
+    Friend WithEvents TxtCP As TextBox
+    Friend WithEvents Label10 As Label
 End Class

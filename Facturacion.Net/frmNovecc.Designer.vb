@@ -24,6 +24,7 @@ Partial Class frmNovecc
     Private Sub InitializeComponent()
         dgvNovedades = New DataGridView()
         PanelDatos = New Panel()
+        Label10 = New Label()
         TxtCP = New TextBox()
         txtObservaciones = New TextBox()
         Label19 = New Label()
@@ -70,7 +71,8 @@ Partial Class frmNovecc
         cmdAceptar = New Button()
         cmdCancelar = New Button()
         cmdCerrar = New Button()
-        Label10 = New Label()
+        lnkCopiar = New LinkLabel()
+        chkEncabezados = New CheckBox()
         CType(dgvNovedades, ComponentModel.ISupportInitialize).BeginInit()
         PanelDatos.SuspendLayout()
         SuspendLayout()
@@ -82,11 +84,8 @@ Partial Class frmNovecc
         dgvNovedades.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         dgvNovedades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvNovedades.Location = New Point(12, 12)
-        dgvNovedades.MultiSelect = False
         dgvNovedades.Name = "dgvNovedades"
-        dgvNovedades.ReadOnly = True
-        dgvNovedades.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvNovedades.Size = New Size(1050, 240)
+        dgvNovedades.Size = New Size(1034, 263)
         dgvNovedades.TabIndex = 0
         ' 
         ' PanelDatos
@@ -133,17 +132,26 @@ Partial Class frmNovecc
         PanelDatos.Controls.Add(Label7)
         PanelDatos.Controls.Add(txtNroCuenta)
         PanelDatos.Controls.Add(Label2)
-        PanelDatos.Location = New Point(12, 260)
+        PanelDatos.Location = New Point(12, 308)
         PanelDatos.Name = "PanelDatos"
-        PanelDatos.Size = New Size(1050, 200)
+        PanelDatos.Size = New Size(1034, 200)
         PanelDatos.TabIndex = 1
+        ' 
+        ' Label10
+        ' 
+        Label10.AutoSize = True
+        Label10.Location = New Point(340, 16)
+        Label10.Name = "Label10"
+        Label10.Size = New Size(90, 15)
+        Label10.TabIndex = 50
+        Label10.Text = "Punto de Venta:"
         ' 
         ' TxtCP
         ' 
-        TxtCP.Location = New Point(780, 140)
+        TxtCP.Location = New Point(780, 133)
         TxtCP.Name = "TxtCP"
         TxtCP.Size = New Size(240, 23)
-        TxtCP.TabIndex = 49
+        TxtCP.TabIndex = 17
         ' 
         ' txtObservaciones
         ' 
@@ -180,70 +188,66 @@ Partial Class frmNovecc
         ' txtPV
         ' 
         txtPV.BackColor = Color.White
-        txtPV.Location = New Point(450, 20)
+        txtPV.Location = New Point(450, 13)
         txtPV.Name = "txtPV"
-        txtPV.ReadOnly = True
         txtPV.Size = New Size(200, 23)
-        txtPV.TabIndex = 44
+        txtPV.TabIndex = 7
         ' 
         ' Label13
         ' 
         Label13.AutoSize = True
-        Label13.Location = New Point(690, 142)
+        Label13.Location = New Point(690, 135)
         Label13.Name = "Label13"
-        Label13.Size = New Size(64, 15)
+        Label13.Size = New Size(67, 15)
         Label13.TabIndex = 32
-        Label13.Text = "Cod.Postal"
+        Label13.Text = "Cod.Postal:"
         ' 
         ' CmbBanco
         ' 
-        CmbBanco.DropDownStyle = ComboBoxStyle.DropDownList
         CmbBanco.FormattingEnabled = True
-        CmbBanco.Location = New Point(780, 80)
+        CmbBanco.Location = New Point(780, 73)
         CmbBanco.Name = "CmbBanco"
         CmbBanco.Size = New Size(240, 23)
-        CmbBanco.TabIndex = 42
+        CmbBanco.TabIndex = 15
         ' 
         ' Label11
         ' 
         Label11.AutoSize = True
-        Label11.Location = New Point(690, 83)
+        Label11.Location = New Point(690, 76)
         Label11.Name = "Label11"
-        Label11.Size = New Size(40, 15)
+        Label11.Size = New Size(43, 15)
         Label11.TabIndex = 35
-        Label11.Text = "Banco"
+        Label11.Text = "Banco:"
         ' 
         ' CmbSucursal
         ' 
-        CmbSucursal.DropDownStyle = ComboBoxStyle.DropDownList
         CmbSucursal.FormattingEnabled = True
-        CmbSucursal.Location = New Point(780, 50)
+        CmbSucursal.Location = New Point(780, 43)
         CmbSucursal.Name = "CmbSucursal"
         CmbSucursal.Size = New Size(240, 23)
-        CmbSucursal.TabIndex = 41
+        CmbSucursal.TabIndex = 14
         ' 
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(690, 53)
+        Label9.Location = New Point(690, 46)
         Label9.Name = "Label9"
-        Label9.Size = New Size(51, 15)
+        Label9.Size = New Size(54, 15)
         Label9.TabIndex = 31
-        Label9.Text = "Sucursal"
+        Label9.Text = "Sucursal:"
         ' 
         ' CmbTipoVenta
         ' 
-        CmbTipoVenta.DropDownStyle = ComboBoxStyle.DropDownList
         CmbTipoVenta.FormattingEnabled = True
-        CmbTipoVenta.Location = New Point(780, 20)
+        CmbTipoVenta.Location = New Point(780, 13)
         CmbTipoVenta.Name = "CmbTipoVenta"
         CmbTipoVenta.Size = New Size(240, 23)
-        CmbTipoVenta.TabIndex = 40
+        CmbTipoVenta.TabIndex = 13
         ' 
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Location = New Point(690, 23)
+        Label8.Location = New Point(690, 16)
         Label8.Name = "Label8"
         Label8.Size = New Size(66, 15)
         Label8.TabIndex = 21
@@ -251,17 +255,16 @@ Partial Class frmNovecc
         ' 
         ' CmbCondicion
         ' 
-        CmbCondicion.DropDownStyle = ComboBoxStyle.DropDownList
         CmbCondicion.FormattingEnabled = True
-        CmbCondicion.Location = New Point(780, 109)
+        CmbCondicion.Location = New Point(780, 102)
         CmbCondicion.Name = "CmbCondicion"
         CmbCondicion.Size = New Size(240, 23)
-        CmbCondicion.TabIndex = 39
+        CmbCondicion.TabIndex = 16
         ' 
         ' Label14
         ' 
         Label14.AutoSize = True
-        Label14.Location = New Point(690, 112)
+        Label14.Location = New Point(690, 105)
         Label14.Name = "Label14"
         Label14.Size = New Size(65, 15)
         Label14.TabIndex = 23
@@ -269,92 +272,90 @@ Partial Class frmNovecc
         ' 
         ' CmbComprobante
         ' 
-        CmbComprobante.DropDownStyle = ComboBoxStyle.DropDownList
         CmbComprobante.FormattingEnabled = True
-        CmbComprobante.Location = New Point(450, 140)
+        CmbComprobante.Location = New Point(450, 133)
         CmbComprobante.Name = "CmbComprobante"
         CmbComprobante.Size = New Size(200, 23)
-        CmbComprobante.TabIndex = 38
+        CmbComprobante.TabIndex = 11
         ' 
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(340, 143)
+        Label6.Location = New Point(340, 136)
         Label6.Name = "Label6"
-        Label6.Size = New Size(81, 15)
+        Label6.Size = New Size(84, 15)
         Label6.TabIndex = 19
-        Label6.Text = "Comprobante"
+        Label6.Text = "Comprobante:"
         ' 
         ' CmbTipoValor
         ' 
-        CmbTipoValor.DropDownStyle = ComboBoxStyle.DropDownList
         CmbTipoValor.FormattingEnabled = True
-        CmbTipoValor.Location = New Point(450, 110)
+        CmbTipoValor.Location = New Point(450, 103)
         CmbTipoValor.Name = "CmbTipoValor"
         CmbTipoValor.Size = New Size(200, 23)
-        CmbTipoValor.TabIndex = 37
+        CmbTipoValor.TabIndex = 10
         ' 
         ' Label12
         ' 
         Label12.AutoSize = True
-        Label12.Location = New Point(340, 113)
+        Label12.Location = New Point(340, 106)
         Label12.Name = "Label12"
-        Label12.Size = New Size(60, 15)
+        Label12.Size = New Size(63, 15)
         Label12.TabIndex = 26
-        Label12.Text = "Tipo Valor"
+        Label12.Text = "Tipo Valor:"
         ' 
         ' txtNroCheque
         ' 
-        txtNroCheque.Location = New Point(780, 170)
+        txtNroCheque.Location = New Point(780, 163)
         txtNroCheque.Name = "txtNroCheque"
         txtNroCheque.Size = New Size(240, 23)
-        txtNroCheque.TabIndex = 34
+        txtNroCheque.TabIndex = 18
         ' 
         ' Label18
         ' 
         Label18.AutoSize = True
-        Label18.Location = New Point(690, 173)
+        Label18.Location = New Point(690, 166)
         Label18.Name = "Label18"
-        Label18.Size = New Size(71, 15)
+        Label18.Size = New Size(74, 15)
         Label18.TabIndex = 33
-        Label18.Text = "Nro.Cheque"
+        Label18.Text = "Nro.Cheque:"
         Label18.Visible = False
         ' 
         ' txtRegInterno
         ' 
-        txtRegInterno.Location = New Point(450, 80)
+        txtRegInterno.Location = New Point(450, 73)
         txtRegInterno.Name = "txtRegInterno"
         txtRegInterno.Size = New Size(200, 23)
-        txtRegInterno.TabIndex = 29
+        txtRegInterno.TabIndex = 9
         ' 
         ' Label17
         ' 
         Label17.AutoSize = True
-        Label17.Location = New Point(340, 83)
+        Label17.Location = New Point(340, 76)
         Label17.Name = "Label17"
-        Label17.Size = New Size(68, 15)
+        Label17.Size = New Size(71, 15)
         Label17.TabIndex = 30
-        Label17.Text = "Reg.Interno"
+        Label17.Text = "Reg.Interno:"
         ' 
         ' txtFechaVto
         ' 
-        txtFechaVto.Location = New Point(450, 50)
+        txtFechaVto.Location = New Point(450, 43)
         txtFechaVto.Name = "txtFechaVto"
         txtFechaVto.Size = New Size(200, 23)
-        txtFechaVto.TabIndex = 27
+        txtFechaVto.TabIndex = 8
         ' 
         ' Label15
         ' 
         Label15.AutoSize = True
-        Label15.Location = New Point(340, 53)
+        Label15.Location = New Point(340, 46)
         Label15.Name = "Label15"
-        Label15.Size = New Size(61, 15)
+        Label15.Size = New Size(64, 15)
         Label15.TabIndex = 28
-        Label15.Text = "Fecha vto."
+        Label15.Text = "Fecha vto.:"
         ' 
         ' txtMonto
         ' 
-        txtMonto.Location = New Point(120, 170)
+        txtMonto.Location = New Point(120, 163)
         txtMonto.Name = "txtMonto"
         txtMonto.Size = New Size(190, 23)
         txtMonto.TabIndex = 6
@@ -362,15 +363,15 @@ Partial Class frmNovecc
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(10, 173)
+        Label5.Location = New Point(10, 166)
         Label5.Name = "Label5"
-        Label5.Size = New Size(43, 15)
+        Label5.Size = New Size(46, 15)
         Label5.TabIndex = 18
-        Label5.Text = "Monto"
+        Label5.Text = "Monto:"
         ' 
         ' txtFecha
         ' 
-        txtFecha.Location = New Point(120, 140)
+        txtFecha.Location = New Point(120, 133)
         txtFecha.Name = "txtFecha"
         txtFecha.Size = New Size(190, 23)
         txtFecha.TabIndex = 5
@@ -378,15 +379,15 @@ Partial Class frmNovecc
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(10, 143)
+        Label4.Location = New Point(10, 136)
         Label4.Name = "Label4"
-        Label4.Size = New Size(38, 15)
+        Label4.Size = New Size(41, 15)
         Label4.TabIndex = 17
-        Label4.Text = "Fecha"
+        Label4.Text = "Fecha:"
         ' 
         ' txtNroComprobante
         ' 
-        txtNroComprobante.Location = New Point(120, 110)
+        txtNroComprobante.Location = New Point(120, 103)
         txtNroComprobante.Name = "txtNroComprobante"
         txtNroComprobante.Size = New Size(190, 23)
         txtNroComprobante.TabIndex = 4
@@ -394,15 +395,15 @@ Partial Class frmNovecc
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(10, 113)
+        Label3.Location = New Point(10, 106)
         Label3.Name = "Label3"
-        Label3.Size = New Size(73, 15)
+        Label3.Size = New Size(76, 15)
         Label3.TabIndex = 16
-        Label3.Text = "Nro.Compte"
+        Label3.Text = "Nro.Compte:"
         ' 
         ' txtNroCupon
         ' 
-        txtNroCupon.Location = New Point(120, 80)
+        txtNroCupon.Location = New Point(120, 73)
         txtNroCupon.Name = "txtNroCupon"
         txtNroCupon.Size = New Size(190, 23)
         txtNroCupon.TabIndex = 3
@@ -410,15 +411,15 @@ Partial Class frmNovecc
         ' Label16
         ' 
         Label16.AutoSize = True
-        Label16.Location = New Point(10, 83)
+        Label16.Location = New Point(10, 76)
         Label16.Name = "Label16"
-        Label16.Size = New Size(66, 15)
+        Label16.Size = New Size(69, 15)
         Label16.TabIndex = 24
-        Label16.Text = "Nro.Cupon"
+        Label16.Text = "Nro.Cupon:"
         ' 
         ' txtNroFactura
         ' 
-        txtNroFactura.Location = New Point(120, 50)
+        txtNroFactura.Location = New Point(120, 43)
         txtNroFactura.Name = "txtNroFactura"
         txtNroFactura.Size = New Size(190, 23)
         txtNroFactura.TabIndex = 2
@@ -426,31 +427,31 @@ Partial Class frmNovecc
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(10, 53)
+        Label1.Location = New Point(10, 46)
         Label1.Name = "Label1"
-        Label1.Size = New Size(69, 15)
+        Label1.Size = New Size(72, 15)
         Label1.TabIndex = 25
-        Label1.Text = "Nro.Factura"
+        Label1.Text = "Nro.Factura:"
         ' 
         ' txtInterno
         ' 
-        txtInterno.Location = New Point(450, 170)
+        txtInterno.Location = New Point(450, 163)
         txtInterno.Name = "txtInterno"
         txtInterno.Size = New Size(200, 23)
-        txtInterno.TabIndex = 7
+        txtInterno.TabIndex = 12
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(340, 173)
+        Label7.Location = New Point(340, 166)
         Label7.Name = "Label7"
-        Label7.Size = New Size(69, 15)
+        Label7.Size = New Size(72, 15)
         Label7.TabIndex = 20
-        Label7.Text = "Imp.Interno"
+        Label7.Text = "Imp.Interno:"
         ' 
         ' txtNroCuenta
         ' 
-        txtNroCuenta.Location = New Point(120, 20)
+        txtNroCuenta.Location = New Point(120, 13)
         txtNroCuenta.Name = "txtNroCuenta"
         txtNroCuenta.Size = New Size(190, 23)
         txtNroCuenta.TabIndex = 1
@@ -458,17 +459,17 @@ Partial Class frmNovecc
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(10, 23)
+        Label2.Location = New Point(10, 16)
         Label2.Name = "Label2"
-        Label2.Size = New Size(45, 15)
+        Label2.Size = New Size(71, 15)
         Label2.TabIndex = 15
-        Label2.Text = "Cuenta"
+        Label2.Text = "Nro.Cuenta:"
         ' 
         ' chkAnterior
         ' 
         chkAnterior.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         chkAnterior.AutoSize = True
-        chkAnterior.Location = New Point(12, 470)
+        chkAnterior.Location = New Point(12, 518)
         chkAnterior.Name = "chkAnterior"
         chkAnterior.Size = New Size(69, 19)
         chkAnterior.TabIndex = 44
@@ -478,33 +479,36 @@ Partial Class frmNovecc
         ' cmdAgregar
         ' 
         cmdAgregar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        cmdAgregar.FlatStyle = FlatStyle.Flat
         cmdAgregar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        cmdAgregar.Location = New Point(420, 466)
+        cmdAgregar.Location = New Point(484, 514)
         cmdAgregar.Name = "cmdAgregar"
-        cmdAgregar.Size = New Size(100, 30)
-        cmdAgregar.TabIndex = 13
+        cmdAgregar.Size = New Size(88, 30)
+        cmdAgregar.TabIndex = 22
         cmdAgregar.Text = "&Agregar"
         cmdAgregar.UseVisualStyleBackColor = True
         ' 
         ' cmdBorrar
         ' 
         cmdBorrar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        cmdBorrar.FlatStyle = FlatStyle.Flat
         cmdBorrar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        cmdBorrar.Location = New Point(530, 466)
+        cmdBorrar.Location = New Point(578, 514)
         cmdBorrar.Name = "cmdBorrar"
-        cmdBorrar.Size = New Size(100, 30)
-        cmdBorrar.TabIndex = 12
+        cmdBorrar.Size = New Size(88, 30)
+        cmdBorrar.TabIndex = 23
         cmdBorrar.Text = "&Borrar"
         cmdBorrar.UseVisualStyleBackColor = True
         ' 
         ' cmdModificar
         ' 
         cmdModificar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        cmdModificar.FlatStyle = FlatStyle.Flat
         cmdModificar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        cmdModificar.Location = New Point(640, 466)
+        cmdModificar.Location = New Point(672, 514)
         cmdModificar.Name = "cmdModificar"
-        cmdModificar.Size = New Size(100, 30)
-        cmdModificar.TabIndex = 10
+        cmdModificar.Size = New Size(88, 30)
+        cmdModificar.TabIndex = 24
         cmdModificar.Text = "&Modificar"
         cmdModificar.UseVisualStyleBackColor = True
         ' 
@@ -512,11 +516,12 @@ Partial Class frmNovecc
         ' 
         cmdAceptar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
         cmdAceptar.Enabled = False
+        cmdAceptar.FlatStyle = FlatStyle.Flat
         cmdAceptar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        cmdAceptar.Location = New Point(750, 466)
+        cmdAceptar.Location = New Point(766, 514)
         cmdAceptar.Name = "cmdAceptar"
-        cmdAceptar.Size = New Size(100, 30)
-        cmdAceptar.TabIndex = 11
+        cmdAceptar.Size = New Size(88, 30)
+        cmdAceptar.TabIndex = 19
         cmdAceptar.Text = "Ac&eptar"
         cmdAceptar.UseVisualStyleBackColor = True
         ' 
@@ -524,39 +529,57 @@ Partial Class frmNovecc
         ' 
         cmdCancelar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
         cmdCancelar.Enabled = False
+        cmdCancelar.FlatStyle = FlatStyle.Flat
         cmdCancelar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        cmdCancelar.Location = New Point(860, 466)
+        cmdCancelar.Location = New Point(860, 514)
         cmdCancelar.Name = "cmdCancelar"
-        cmdCancelar.Size = New Size(100, 30)
-        cmdCancelar.TabIndex = 9
+        cmdCancelar.Size = New Size(88, 30)
+        cmdCancelar.TabIndex = 20
         cmdCancelar.Text = "&Cancelar"
         cmdCancelar.UseVisualStyleBackColor = True
         ' 
         ' cmdCerrar
         ' 
         cmdCerrar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        cmdCerrar.BackColor = Color.IndianRed
+        cmdCerrar.FlatStyle = FlatStyle.Flat
         cmdCerrar.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        cmdCerrar.Location = New Point(970, 466)
+        cmdCerrar.ForeColor = Color.White
+        cmdCerrar.Location = New Point(954, 514)
         cmdCerrar.Name = "cmdCerrar"
-        cmdCerrar.Size = New Size(90, 30)
-        cmdCerrar.TabIndex = 14
-        cmdCerrar.Text = "C&errar"
-        cmdCerrar.UseVisualStyleBackColor = True
+        cmdCerrar.Size = New Size(88, 30)
+        cmdCerrar.TabIndex = 21
+        cmdCerrar.Text = "Salir"
+        cmdCerrar.UseVisualStyleBackColor = False
         ' 
-        ' Label10
+        ' lnkCopiar
         ' 
-        Label10.AutoSize = True
-        Label10.Location = New Point(340, 23)
-        Label10.Name = "Label10"
-        Label10.Size = New Size(87, 15)
-        Label10.TabIndex = 50
-        Label10.Text = "Punto de Venta"
+        lnkCopiar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        lnkCopiar.AutoSize = True
+        lnkCopiar.Location = New Point(822, 283)
+        lnkCopiar.Name = "lnkCopiar"
+        lnkCopiar.Size = New Size(97, 15)
+        lnkCopiar.TabIndex = 45
+        lnkCopiar.TabStop = True
+        lnkCopiar.Text = "Copiar selección:"
+        ' 
+        ' chkEncabezados
+        ' 
+        chkEncabezados.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        chkEncabezados.AutoSize = True
+        chkEncabezados.Location = New Point(925, 283)
+        chkEncabezados.Name = "chkEncabezados"
+        chkEncabezados.Size = New Size(119, 19)
+        chkEncabezados.TabIndex = 46
+        chkEncabezados.Text = "Con encabezados"
         ' 
         ' frmNovecc
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1074, 508)
+        ClientSize = New Size(1058, 556)
+        Controls.Add(lnkCopiar)
+        Controls.Add(chkEncabezados)
         Controls.Add(cmdCerrar)
         Controls.Add(cmdCancelar)
         Controls.Add(cmdAceptar)
@@ -567,6 +590,9 @@ Partial Class frmNovecc
         Controls.Add(PanelDatos)
         Controls.Add(dgvNovedades)
         Font = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        FormBorderStyle = FormBorderStyle.FixedSingle
+        MaximizeBox = False
+        MinimizeBox = False
         Name = "frmNovecc"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Novedades Cuentas Corrientes"
@@ -627,4 +653,6 @@ Partial Class frmNovecc
     Friend WithEvents cmdCerrar As System.Windows.Forms.Button
     Friend WithEvents TxtCP As TextBox
     Friend WithEvents Label10 As Label
+    Friend WithEvents lnkCopiar As LinkLabel
+    Friend WithEvents chkEncabezados As CheckBox
 End Class

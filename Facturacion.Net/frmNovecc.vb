@@ -1,4 +1,5 @@
 Imports System.Data.SqlClient
+Imports Microsoft.Data
 Imports DSM = DataSourceManager.Lib.DataSourceManager
 Public Class frmNovecc
     Inherits Form
@@ -9,6 +10,7 @@ Public Class frmNovecc
     Private _idCtaCteSeleccionada As Integer = 0
     Private filaActual As DataGridViewRow
     Private filaActualIndice As Integer = -1
+    Private _suspenderAccionFiltros As Boolean = False
 
     Public Shared Sub AbrirInstancia(mdiParent As Form)
         If instancia Is Nothing OrElse instancia.IsDisposed Then
@@ -29,6 +31,7 @@ Public Class frmNovecc
             CargarCombos()
             CargarNovedades()
             FormModoConsulta()
+            dgvNovedades.MultiSelect = True
         Catch ex As Exception
             MessageBox.Show("Error al iniciar el formulario: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -56,6 +59,7 @@ Public Class frmNovecc
                          NroCierre, CodigoAfip FROM NoveCtaCte ORDER BY Puntodeventa, NroComprobante "
             Dim dt As DataTable = DSM.ExecuteQuery(DSM.Stock, sql)
             dgvNovedades.DataSource = dt
+
             If dt.Rows.Count = 0 Then
                 filaActualIndice = -1
                 filaActual = Nothing
@@ -66,7 +70,7 @@ Public Class frmNovecc
             filaActualIndice = 0
             filaActual = dgvNovedades.Rows(filaActualIndice)
             'AplicarSeleccionActual()
-
+            GridConfigurarColumnas()
         Catch ex As Exception
             MessageBox.Show("Error al cargar novedades: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -78,14 +82,14 @@ Public Class frmNovecc
 
 
     Private Sub FormModoConsulta()
-        SetControlesEnabled(True, cmdAgregar, cmdModificar, cmdBorrar, cmdCerrar, dgvNovedades, chkAnterior)
-        SetControlesEnabled(False, cmdAceptar, cmdCancelar, txtNroCuenta, txtFecha, txtNroComprobante, txtMonto, txtNroCupon, txtNroFactura, txtInterno, txtRegInterno, txtFechaVto, txtNroCheque, txtBonificacion, txtObservaciones, CmbTipoVenta, CmbCondicion, CmbComprobante, CmbSucursal, CmbBanco, TxtCP, CmbTipoValor)
+        SetControlesEnabled(True, cmdAgregar, cmdModificar, cmdBorrar, dgvNovedades, chkAnterior)
+        SetControlesEnabled(False, cmdAceptar, cmdCancelar, txtNroCuenta, txtFecha, txtNroComprobante, txtMonto, txtNroCupon, txtNroFactura, txtInterno, txtRegInterno, txtFechaVto, txtNroCheque, txtBonificacion, txtObservaciones, CmbTipoVenta, CmbCondicion, CmbComprobante, CmbSucursal, CmbBanco, TxtCP, CmbTipoValor, txtPV)
 
     End Sub
 
     Private Sub FormModoEdicion()
-        SetControlesEnabled(False, cmdAgregar, cmdModificar, cmdBorrar, cmdCerrar, dgvNovedades)
-        SetControlesEnabled(True, cmdAceptar, cmdCancelar, txtNroCuenta, txtFecha, txtNroComprobante, txtMonto, txtNroCupon, txtNroFactura, txtInterno, txtRegInterno, txtFechaVto, txtNroCheque, txtBonificacion, txtObservaciones, CmbTipoVenta, CmbCondicion, CmbComprobante, CmbSucursal, CmbBanco, TxtCP, CmbTipoValor, chkAnterior)
+        SetControlesEnabled(False, cmdAgregar, cmdModificar, cmdBorrar, dgvNovedades)
+        SetControlesEnabled(True, cmdAceptar, cmdCancelar, txtNroCuenta, txtFecha, txtNroComprobante, txtMonto, txtNroCupon, txtNroFactura, txtInterno, txtRegInterno, txtFechaVto, txtNroCheque, txtBonificacion, txtObservaciones, CmbTipoVenta, CmbCondicion, CmbComprobante, CmbSucursal, CmbBanco, TxtCP, CmbTipoValor, chkAnterior, txtPV)
     End Sub
 
     Private Sub FormLimpiarSeleccionado()
@@ -102,6 +106,7 @@ Public Class frmNovecc
         txtBonificacion.Text = "0.00"
         txtObservaciones.Text = ""
         TxtCP.Text = ""
+        txtPV.Text = ""
         chkAnterior.Checked = False
 
         CmbTipoVenta.SelectedIndex = -1
@@ -123,28 +128,23 @@ Public Class frmNovecc
     End Sub
 
     Private Sub cmdModificar_Click(sender As Object, e As EventArgs) Handles cmdModificar.Click
-        If dgvNovedades.SelectedRows.Count = 0 Then
-            MessageBox.Show("Seleccione un registro para modificar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
-
-        esNuevo = False
+        _suspenderAccionFiltros = True
+        If filaActual Is Nothing Then Return
         FormModoEdicion()
-        ' Los datos ya deberían estar cargados por el SelectionChanged
-        txtNroCuenta.Focus()
+        _suspenderAccionFiltros = False
     End Sub
 
     Private Sub cmdBorrar_Click(sender As Object, e As EventArgs) Handles cmdBorrar.Click
-        If dgvNovedades.SelectedRows.Count = 0 Then
+        If filaActual Is Nothing Then
             MessageBox.Show("Seleccione un registro para borrar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
         If MessageBox.Show("¿Está seguro que desea borrar la novedad?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             Try
-                Dim id As Integer = Convert.ToInt32(dgvNovedades.SelectedRows(0).Cells("IdDetaCtaCte").Value)
-                Dim sql As String = "DELETE FROM NoveCtaCte WHERE IdDetaCtaCte = " & id
-                DSM.ExecuteQuery(DataSourceManager.Lib.DataSourceManager.Stock, sql)
+                Dim Sql = "DELETE FROM NoveCtaCte WHERE IdDetaCtaCte = @IdDetaCtaCte"
+                Dim parametros = CmdParams("@IdDetaCtaCte", Convert.ToInt32(filaActual.Cells("IdDetaCtaCte").Value))
+                DSM.Execute(DSM.Stock, Sql, parametros)
                 CargarNovedades()
             Catch ex As Exception
                 MessageBox.Show("Error al borrar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -166,12 +166,13 @@ Public Class frmNovecc
         Try
             Dim prms As New Dictionary(Of String, Object)
 
-            prms.Add("@IdCtaCte", _idCtaCteSeleccionada)
+            prms.Add("@NroCuenta", _idCtaCteSeleccionada)
             prms.Add("@Fecha", Convert.ToDateTime(txtFecha.Text))
             prms.Add("@NroComprobante", If(String.IsNullOrEmpty(txtNroComprobante.Text), DBNull.Value, txtNroComprobante.Text))
             prms.Add("@Monto", Convert.ToDecimal(txtMonto.Text))
             prms.Add("@PuntodeVenta", If(String.IsNullOrEmpty(txtPV.Text), DBNull.Value, txtPV.Text))
             prms.Add("@IdImputacion", If(CmbComprobante.SelectedValue Is Nothing, DBNull.Value, CmbComprobante.SelectedValue))
+            prms.Add("@NombreComprobante", If(CmbComprobante.Text = "", DBNull.Value, CmbComprobante.Text))
 
             ' Campos analizados (Strings desde Combos)
             prms.Add("@Tipoventa", CmbTipoVenta.Text)
@@ -200,12 +201,12 @@ Public Class frmNovecc
 
             Dim sql As String = ""
             If esNuevo Then
-                sql = "INSERT INTO NoveCtaCte (IdCtaCte, Fecha, NroComprobante, Monto, PuntodeVenta, IdImputacion, " &
+                sql = "INSERT INTO NoveCtaCte (NroCuenta, Fecha, NroComprobante, Monto, PuntodeVenta, IdImputacion, NombreComprobante, " &
                       "Tipoventa, Condicion, Sucursal, Banco, LocalidadCP, TipoValor, NroCheque, NroCupon, NroFactura, RegInterno, IInterno, FechaVto, Anterior) " &
-                      "VALUES (@IdCtaCte, @Fecha, @NroComprobante, @Monto, @PuntodeVenta, @IdImputacion, " &
+                      "VALUES (@NroCuenta, @Fecha, @NroComprobante, @Monto, @PuntodeVenta, @IdImputacion, @NombreComprobante, " &
                       "@Tipoventa, @Condicion, @Sucursal, @Banco, @LocalidadCP, @TipoValor, @NroCheque, @NroCupon, @NroFactura, @RegInterno, @IInterno, @FechaVto, @Anterior)"
             Else
-                sql = "UPDATE NoveCtaCte SET IdCtaCte=@IdCtaCte, Fecha=@Fecha, NroComprobante=@NroComprobante, " &
+                sql = "UPDATE NoveCtaCte SET Fecha=@Fecha, NroComprobante=@NroComprobante, " &
                       "Monto=@Monto, PuntodeVenta=@PuntodeVenta, IdImputacion=@IdImputacion, " &
                       "Tipoventa=@Tipoventa, Condicion=@Condicion, Sucursal=@Sucursal, Banco=@Banco, LocalidadCP=@LocalidadCP, " &
                       "TipoValor=@TipoValor, NroCheque=@NroCheque, NroCupon=@NroCupon, NroFactura=@NroFactura, RegInterno=@RegInterno, " &
@@ -248,11 +249,11 @@ Public Class frmNovecc
             Return False
         End If
 
-        If CmbTipoVenta.SelectedIndex = -1 Then
-            MessageBox.Show("Debe seleccionar un tipo de venta.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            CmbTipoVenta.Focus()
-            Return False
-        End If
+        'If CmbTipoVenta.SelectedIndex = -1 Then
+        '    MessageBox.Show("Debe seleccionar un tipo de venta.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        '    CmbTipoVenta.Focus()
+        '    Return False
+        'End If
 
         If CmbCondicion.SelectedIndex = -1 Then
             MessageBox.Show("Debe seleccionar una condición de venta.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -303,11 +304,11 @@ Public Class frmNovecc
         If String.IsNullOrWhiteSpace(txtNroCuenta.Text) Then Return
 
         Try
-            Dim sql As String = "SELECT IdCtaCte, Nombre FROM MaeCtaCte WHERE NroCuenta = " & txtNroCuenta.Text
+            Dim sql As String = "SELECT Nrocuenta, Nombre FROM MaeCtaCte WHERE NroCuenta = " & txtNroCuenta.Text
             Dim dt As DataTable = DataSourceManager.Lib.DataSourceManager.ExecuteQuery(DataSourceManager.Lib.DataSourceManager.Stock, sql)
 
             If dt.Rows.Count > 0 Then
-                _idCtaCteSeleccionada = Convert.ToInt32(dt.Rows(0)("IdCtaCte"))
+                _idCtaCteSeleccionada = Convert.ToInt32(dt.Rows(0)("NroCuenta"))
             Else
                 _idCtaCteSeleccionada = 0
             End If
@@ -364,6 +365,7 @@ Public Class frmNovecc
 
                 txtNroCuenta.Text = If(filaActual.Cells("NroCuenta").Value IsNot DBNull.Value, filaActual.Cells("NroCuenta").Value.ToString(), String.Empty)
                 txtNroFactura.Text = If(filaActual.Cells("NroFactura").Value IsNot DBNull.Value, filaActual.Cells("NroFactura").Value.ToString(), String.Empty)
+                txtPV.Text = If(filaActual.Cells("PuntodeVenta").Value IsNot DBNull.Value, filaActual.Cells("PuntodeVenta").Value.ToString(), String.Empty)
                 txtNroCupon.Text = If(filaActual.Cells("NroCupon").Value IsNot DBNull.Value, filaActual.Cells("NroCupon").Value.ToString(), String.Empty)
                 txtNroComprobante.Text = If(filaActual.Cells("NroComprobante").Value IsNot DBNull.Value, filaActual.Cells("NroComprobante").Value.ToString(), String.Empty)
                 CmbComprobante.SelectedValue = If(filaActual.Cells("IdImputacion").Value IsNot DBNull.Value, filaActual.Cells("IdImputacion").Value, Nothing)
@@ -400,6 +402,100 @@ Public Class frmNovecc
                 MsgBox("Error en FormObtenerSeleccionado: " & ex.Message, MsgBoxStyle.Critical, "Error")
             End Try
         End If
+    End Sub
+
+    Public Sub GridConfigurarColumnas()
+        Dim grid = dgvNovedades
+
+        For Each col As DataGridViewColumn In grid.Columns
+            col.Visible = False
+        Next
+
+        If grid.Columns.Contains("IdDetaCtaCte") Then
+            grid.Columns("IdDetaCtaCte").Visible = False
+        End If
+
+        If grid.Columns.Contains("NroCuenta") Then
+            grid.Columns("NroCuenta").Visible = True
+            grid.Columns("NroCuenta").HeaderText = "Nro.Cta."
+            grid.Columns("NroCuenta").Width = 80
+            grid.Columns("NroCuenta").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        End If
+
+        If grid.Columns.Contains("PuntodeVenta") Then
+            grid.Columns("PuntodeVenta").Visible = True
+            grid.Columns("PuntodeVenta").HeaderText = "P.Vta."
+            grid.Columns("PuntodeVenta").Width = 60
+            grid.Columns("PuntodeVenta").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        End If
+
+        If grid.Columns.Contains("NroFactura") Then
+            grid.Columns("NroFactura").Visible = True
+            grid.Columns("NroFactura").HeaderText = "Nro.Fact."
+            grid.Columns("NroFactura").Width = 80
+            grid.Columns("NroFactura").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        End If
+
+        If grid.Columns.Contains("Monto") Then
+            grid.Columns("Monto").Visible = True
+            grid.Columns("Monto").HeaderText = "Monto"
+            grid.Columns("Monto").Width = 100
+            grid.Columns("Monto").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            grid.Columns("Monto").DefaultCellStyle.Format = "N2"
+        End If
+
+        If grid.Columns.Contains("NroComprobante") Then
+            grid.Columns("NroComprobante").Visible = True
+            grid.Columns("NroComprobante").HeaderText = "Nro.Comp."
+            grid.Columns("NroComprobante").Width = 80
+            grid.Columns("NroComprobante").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        End If
+
+        If grid.Columns.Contains("NombreComprobante") Then
+            grid.Columns("NombreComprobante").Visible = True
+            grid.Columns("NombreComprobante").HeaderText = "Tipo Comp."
+            grid.Columns("NombreComprobante").Width = 120
+        End If
+
+        If grid.Columns.Contains("Condicion") Then
+            grid.Columns("Condicion").Visible = True
+            grid.Columns("Condicion").HeaderText = "Condición"
+            grid.Columns("Condicion").Width = 100
+        End If
+
+        If grid.Columns.Contains("Fecha") Then
+            grid.Columns("Fecha").Visible = True
+            grid.Columns("Fecha").HeaderText = "Fecha"
+            grid.Columns("Fecha").Width = 80
+            grid.Columns("Fecha").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            grid.Columns("Fecha").DefaultCellStyle.Format = "dd/MM/yyyy"
+        End If
+
+        If grid.Columns.Contains("Tipoventa") Then
+            grid.Columns("Tipoventa").Visible = True
+            grid.Columns("Tipoventa").HeaderText = "Tipo Venta"
+            grid.Columns("Tipoventa").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        End If
+
+        If grid.Columns.Contains("Sucursal") Then
+            grid.Columns("Sucursal").Visible = True
+            grid.Columns("Sucursal").HeaderText = "Sucursal"
+            grid.Columns("Sucursal").Width = 100
+        End If
+
+        If grid.Columns.Contains("Anterior") Then
+            grid.Columns("Anterior").Visible = True
+            grid.Columns("Anterior").HeaderText = "Anterior"
+            grid.Columns("Anterior").Width = 60
+        End If
+
+        ConfigurarEstiloGrid(grid)
+
+        grid.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect
+    End Sub
+
+    Private Sub lnkCopiar_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkCopiar.LinkClicked
+        CopiarDataGrid(dgvNovedades, chkEncabezados.Checked)
     End Sub
 
 End Class

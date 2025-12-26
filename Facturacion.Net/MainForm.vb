@@ -91,7 +91,7 @@ Public Class MainForm
         frmListadoNovedadesStock.AbrirInstancia(Me)
     End Sub
     Private Sub mnstock_Click(sender As Object, e As EventArgs) Handles mnstock.Click
-        MessageBox.Show("Novedades Stock no implementado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        frmNovestk.AbrirInstancia(Me)
     End Sub
 
     ' --- Facturacion ---

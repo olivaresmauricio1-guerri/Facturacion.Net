@@ -172,30 +172,7 @@ Public Module General
 
             ' Ejecutamos la consulta
             Dim tabla
-            If UsarStock Then
-                tabla = DSM.ExecuteQuery(DSM.Stock, sql)
-            Else
-                ' Default to Proveedores for now, but should likely be parameterized if Facturacion needs others
-                tabla = DSM.ExecuteQuery(DSM.Stock, sql) ' Changed to Stock as default for Facturacion mostly uses Stock? 
-                ' Wait, Proveedores.Net uses DSM.Proveedores. Facturacion probably uses Stock mostly.
-                ' Let's check where DSM.Proveedores comes from. It's likely an Enum.
-                ' If I don't have DSM.Facturacion, I might use DSM.Stock.
-                ' Reverting to DSM.Proveedores logic but using Stock if needed.
-                ' Actually, let's look at the VB6 code. It queries "autoriza" table in "stock" DB (actually "seguridad" usually has users, but VB6 says `MiSql = "Select * from autoriza ...", cnStock`).
-                ' Wait, VB6 `frmSesion` line 156: `MiRs9.Open MiSql, cnStock`.
-                ' VB6 `frmSesion` line 174: `MiRs.Open MiSql, cnSeguridad`.
-                ' So it uses both.
-                
-                ' I will leave this method generic or point to Stock/Seguridad as needed.
-                ' For now I will copy Proveedores logic but be careful.
-                ' Proveedores code:
-                ' If UsarStock Then tabla = DSM.ExecuteQuery(DSM.Stock, sql) Else tabla = DSM.ExecuteQuery(DSM.Proveedores, sql)
-                
-                ' I will change the Else to use DSM.Stock for Facturacion as a safe bet for now, or just leave it as is if I can't verify DSM.Facturacion exists.
-                ' But `DSM.Proveedores` might be valid only for Proveedores DB.
-                ' I'll stick to DSM.Stock for the default else branch in Facturacion, as Facturacion main data is usually in Stock DB.
-                 tabla = DSM.ExecuteQuery(DSM.Stock, sql)
-            End If
+            tabla = DSM.ExecuteQuery(DSM.Stock, sql)
 
             ' Bind al combo
             combo.DataSource = Nothing

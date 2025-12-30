@@ -498,4 +498,12 @@ Public Class frmNovecc
         CopiarDataGrid(dgvNovedades, chkEncabezados.Checked)
     End Sub
 
+    Private Sub cmdBuscarArticulo_Click(sender As Object, e As EventArgs) Handles cmdBuscarArticulo.Click
+        Using frm As New frmClienteSelector()
+            If frm.ShowDialog(Me) = DialogResult.OK Then
+                Dim cuenta = frm.Seleccion
+                txtNroCuenta.Text = If(cuenta IsNot Nothing, cuenta.Item("NroCuenta").ToString(), String.Empty)
+            End If
+        End Using
+    End Sub
 End Class

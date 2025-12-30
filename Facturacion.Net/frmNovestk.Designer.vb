@@ -43,7 +43,6 @@ Partial Class frmNovestk
         txtCantidad = New TextBox()
         Label12 = New Label()
         txtArticulo = New TextBox()
-        lblArticuloDescripcion = New Label()
         Label11 = New Label()
         CmbProveedor = New ComboBox()
         Label10 = New Label()
@@ -67,13 +66,13 @@ Partial Class frmNovestk
         Label1 = New Label()
         txtNroCuenta = New TextBox()
         Label2 = New Label()
+        lblArticuloDescripcion = New Label()
         cmdAgregar = New Button()
         cmdBorrar = New Button()
         cmdModificar = New Button()
         cmdAceptar = New Button()
         cmdCancelar = New Button()
         cmdCerrar = New Button()
-        chkEncabezados = New CheckBox()
         optTotal = New RadioButton()
         optParcial = New RadioButton()
         lblBL = New Label()
@@ -81,6 +80,8 @@ Partial Class frmNovestk
         cmdBL = New Button()
         lblDesp = New Label()
         txtDesp = New TextBox()
+        lnkCopiar = New LinkLabel()
+        chkEncabezados = New CheckBox()
         CType(dgvNovedades, ComponentModel.ISupportInitialize).BeginInit()
         PanelDatos.SuspendLayout()
         SuspendLayout()
@@ -119,7 +120,6 @@ Partial Class frmNovestk
         PanelDatos.Controls.Add(txtCantidad)
         PanelDatos.Controls.Add(Label12)
         PanelDatos.Controls.Add(txtArticulo)
-        PanelDatos.Controls.Add(lblArticuloDescripcion)
         PanelDatos.Controls.Add(Label11)
         PanelDatos.Controls.Add(CmbProveedor)
         PanelDatos.Controls.Add(Label10)
@@ -166,6 +166,7 @@ Partial Class frmNovestk
         txtBonificacion.Name = "txtBonificacion"
         txtBonificacion.Size = New Size(240, 23)
         txtBonificacion.TabIndex = 53
+        txtBonificacion.Text = "0"
         ' 
         ' Label5
         ' 
@@ -310,14 +311,6 @@ Partial Class frmNovestk
         txtArticulo.Name = "txtArticulo"
         txtArticulo.Size = New Size(100, 23)
         txtArticulo.TabIndex = 11
-        ' 
-        ' lblArticuloDescripcion
-        ' 
-        lblArticuloDescripcion.AutoSize = True
-        lblArticuloDescripcion.Location = New Point(560, 136)
-        lblArticuloDescripcion.Name = "lblArticuloDescripcion"
-        lblArticuloDescripcion.Size = New Size(0, 15)
-        lblArticuloDescripcion.TabIndex = 37
         ' 
         ' Label11
         ' 
@@ -511,6 +504,16 @@ Partial Class frmNovestk
         Label2.TabIndex = 15
         Label2.Text = "Nro.Cuenta:"
         ' 
+        ' lblArticuloDescripcion
+        ' 
+        lblArticuloDescripcion.AutoSize = True
+        lblArticuloDescripcion.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblArticuloDescripcion.ForeColor = Color.FromArgb(CByte(0), CByte(0), CByte(192))
+        lblArticuloDescripcion.Location = New Point(23, 518)
+        lblArticuloDescripcion.Name = "lblArticuloDescripcion"
+        lblArticuloDescripcion.Size = New Size(0, 20)
+        lblArticuloDescripcion.TabIndex = 37
+        ' 
         ' cmdAgregar
         ' 
         cmdAgregar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
@@ -587,16 +590,6 @@ Partial Class frmNovestk
         cmdCerrar.Text = "Salir"
         cmdCerrar.UseVisualStyleBackColor = False
         ' 
-        ' chkEncabezados
-        ' 
-        chkEncabezados.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
-        chkEncabezados.AutoSize = True
-        chkEncabezados.Location = New Point(925, 279)
-        chkEncabezados.Name = "chkEncabezados"
-        chkEncabezados.Size = New Size(119, 19)
-        chkEncabezados.TabIndex = 46
-        chkEncabezados.Text = "Con encabezados"
-        ' 
         ' optTotal
         ' 
         optTotal.AutoSize = True
@@ -661,11 +654,34 @@ Partial Class frmNovestk
         txtDesp.Size = New Size(120, 23)
         txtDesp.TabIndex = 66
         ' 
+        ' lnkCopiar
+        ' 
+        lnkCopiar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        lnkCopiar.AutoSize = True
+        lnkCopiar.Location = New Point(824, 281)
+        lnkCopiar.Name = "lnkCopiar"
+        lnkCopiar.Size = New Size(97, 15)
+        lnkCopiar.TabIndex = 67
+        lnkCopiar.TabStop = True
+        lnkCopiar.Text = "Copiar selección:"
+        ' 
+        ' chkEncabezados
+        ' 
+        chkEncabezados.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        chkEncabezados.AutoSize = True
+        chkEncabezados.Location = New Point(927, 281)
+        chkEncabezados.Name = "chkEncabezados"
+        chkEncabezados.Size = New Size(119, 19)
+        chkEncabezados.TabIndex = 68
+        chkEncabezados.Text = "Con encabezados"
+        ' 
         ' frmNovestk
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1058, 552)
+        Controls.Add(lnkCopiar)
+        Controls.Add(chkEncabezados)
         Controls.Add(txtDesp)
         Controls.Add(lblDesp)
         Controls.Add(cmdBL)
@@ -673,7 +689,6 @@ Partial Class frmNovestk
         Controls.Add(lblBL)
         Controls.Add(optTotal)
         Controls.Add(optParcial)
-        Controls.Add(chkEncabezados)
         Controls.Add(cmdCerrar)
         Controls.Add(cmdCancelar)
         Controls.Add(cmdAceptar)
@@ -682,6 +697,7 @@ Partial Class frmNovestk
         Controls.Add(cmdAgregar)
         Controls.Add(PanelDatos)
         Controls.Add(dgvNovedades)
+        Controls.Add(lblArticuloDescripcion)
         Font = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         FormBorderStyle = FormBorderStyle.FixedSingle
         MaximizeBox = False
@@ -743,7 +759,6 @@ Partial Class frmNovestk
     Friend WithEvents cmdAceptar As System.Windows.Forms.Button
     Friend WithEvents cmdCancelar As System.Windows.Forms.Button
     Friend WithEvents cmdCerrar As System.Windows.Forms.Button
-    Friend WithEvents chkEncabezados As System.Windows.Forms.CheckBox
 
     ' Controls for BL Process
     Friend WithEvents optTotal As System.Windows.Forms.RadioButton
@@ -757,4 +772,6 @@ Partial Class frmNovestk
     Friend WithEvents txtBonificacion As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents cmdBuscarArticulo As Button
+    Friend WithEvents lnkCopiar As LinkLabel
+    Friend WithEvents chkEncabezados As CheckBox
 End Class

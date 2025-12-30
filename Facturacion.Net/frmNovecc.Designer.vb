@@ -24,6 +24,7 @@ Partial Class frmNovecc
     Private Sub InitializeComponent()
         dgvNovedades = New DataGridView()
         PanelDatos = New Panel()
+        cmdBuscarArticulo = New Button()
         Label10 = New Label()
         TxtCP = New TextBox()
         txtObservaciones = New TextBox()
@@ -92,6 +93,7 @@ Partial Class frmNovecc
         ' 
         PanelDatos.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         PanelDatos.BorderStyle = BorderStyle.FixedSingle
+        PanelDatos.Controls.Add(cmdBuscarArticulo)
         PanelDatos.Controls.Add(Label10)
         PanelDatos.Controls.Add(TxtCP)
         PanelDatos.Controls.Add(txtObservaciones)
@@ -136,6 +138,18 @@ Partial Class frmNovecc
         PanelDatos.Name = "PanelDatos"
         PanelDatos.Size = New Size(1034, 200)
         PanelDatos.TabIndex = 1
+        ' 
+        ' cmdBuscarArticulo
+        ' 
+        cmdBuscarArticulo.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        cmdBuscarArticulo.FlatStyle = FlatStyle.Flat
+        cmdBuscarArticulo.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        cmdBuscarArticulo.Location = New Point(242, 13)
+        cmdBuscarArticulo.Name = "cmdBuscarArticulo"
+        cmdBuscarArticulo.Size = New Size(55, 23)
+        cmdBuscarArticulo.TabIndex = 56
+        cmdBuscarArticulo.Text = "Buscar"
+        cmdBuscarArticulo.UseVisualStyleBackColor = True
         ' 
         ' Label10
         ' 
@@ -453,7 +467,7 @@ Partial Class frmNovecc
         ' 
         txtNroCuenta.Location = New Point(120, 13)
         txtNroCuenta.Name = "txtNroCuenta"
-        txtNroCuenta.Size = New Size(190, 23)
+        txtNroCuenta.Size = New Size(116, 23)
         txtNroCuenta.TabIndex = 1
         ' 
         ' Label2
@@ -655,4 +669,5 @@ Partial Class frmNovecc
     Friend WithEvents Label10 As Label
     Friend WithEvents lnkCopiar As LinkLabel
     Friend WithEvents chkEncabezados As CheckBox
+    Friend WithEvents cmdBuscarArticulo As Button
 End Class

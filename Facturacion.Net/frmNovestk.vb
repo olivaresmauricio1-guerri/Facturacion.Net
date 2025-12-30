@@ -7,7 +7,7 @@ Public Class frmNovestk
 
     Private Shared instancia As frmNovestk
     Private esNuevo As Boolean = False
-    Private _idNovedadSeleccionada As Integer = 0 ' Correspond to idDetastk
+    Private _idNovedadSeleccionada As Integer = 0
     Private _idArticuloSeleccionado As Integer = 0
     Private filaActual As DataGridViewRow
     Private filaActualIndice As Integer = -1
@@ -48,7 +48,7 @@ Public Class frmNovestk
             General.CargarCombos(CmbProveedor, "Proveedores", "Descripcion", "Descripcion", "Descripcion", "", True)
 
             ' Comprobantes
-            General.CargarCombos(CmbComprobante, "NumerosComprobantes", "Descripcion", "Descripcion", "ImputaStk", "", True)
+            General.CargarCombos(CmbComprobante, "NumerosComprobantes", "Descripcion", "Descripcion", "ImputaStk", "IdPunto=56")
 
             ' Sucursales
             General.CargarCombos(CmbSucursal, "Sucursales", "Descripcion", "Descripcion", "IdSucursal", "", True)
@@ -81,8 +81,8 @@ Public Class frmNovestk
             CmbBL.ValueMember = "BL"
             CmbBL.SelectedIndex = -1
         Catch ex As Exception
-            ' Ignorar error si la tabla no existe o hay problemas, para no bloquear el form
-            ' MessageBox.Show("Error al cargar BLs: " & ex.Message)
+
+            MessageBox.Show("Error al cargar BLs: " & ex.Message)
         End Try
     End Sub
 
@@ -178,6 +178,18 @@ Public Class frmNovestk
             grid.Columns("Despacho").Width = 150
         End If
 
+        If grid.Columns.Contains("PuntodeVenta") Then
+            grid.Columns("PuntodeVenta").Visible = True
+            grid.Columns("PuntodeVenta").HeaderText = "Punto de Venta"
+            grid.Columns("PuntodeVenta").Width = 60
+        End If
+
+        If grid.Columns.Contains("IdComprob") Then
+            grid.Columns("IdComprob").Visible = True
+            grid.Columns("IdComprob").HeaderText = "IdComprob"
+            grid.Columns("IdComprob").Width = 60
+        End If
+
         ConfigurarEstiloGrid(grid)
 
         grid.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect
@@ -206,7 +218,7 @@ Public Class frmNovestk
         txtDespacho.Text = ""
         txtObservaciones.Text = ""
         txtArticulo.Text = ""
-        'lblArticuloDescripcion.Text = ""
+        lblArticuloDescripcion.Text = ""
         txtPV.Text = ""
         chkCancelado.Checked = False
         chkMesAnterior.Checked = False
@@ -249,14 +261,8 @@ Public Class frmNovestk
             ' Combos
             CmbProveedor.Text = If(filaActual.Cells("Proveedor").Value IsNot DBNull.Value, filaActual.Cells("Proveedor").Value.ToString(), "")
             CmbSucursal.Text = If(filaActual.Cells("IdSucursal").Value IsNot DBNull.Value, filaActual.Cells("IdSucursal").Value.ToString(), "")
-
-            If filaActual.Cells("IdSucursal").Value IsNot DBNull.Value Then
-                CmbSucursal.SelectedValue = filaActual.Cells("IdSucursal").Value
-            End If
-
-            If filaActual.Cells("IdComprob").Value IsNot DBNull.Value Then
-                CmbComprobante.SelectedValue = filaActual.Cells("IdComprob").Value
-            End If
+            CmbSucursal.SelectedValue = If(filaActual.Cells("IdSucursal").Value IsNot DBNull.Value, filaActual.Cells("IdSucursal").Value, Nothing)
+            CmbComprobante.SelectedValue = If(filaActual.Cells("IdComprob").Value IsNot DBNull.Value, filaActual.Cells("IdComprob").Value, Nothing)
 
             CmbTipoVenta.Text = If(filaActual.Cells("TipoVenta").Value IsNot DBNull.Value, filaActual.Cells("TipoVenta").Value.ToString(), "")
             CmbCondicion.Text = If(filaActual.Cells("CondicionVenta").Value IsNot DBNull.Value, filaActual.Cells("CondicionVenta").Value.ToString(), "")
@@ -296,8 +302,7 @@ Public Class frmNovestk
             End If
 
             For Each row As DataRow In dtNac.Rows
-                ' Get MaeStk info
-                ' Assuming Articulo in Nacionalizado matches Articulo code in MaeStk
+
                 Dim articuloCode As String = row("Articulo").ToString()
                 Dim sqlMae As String = "Select * from MaeStk Where Articulo = @Articulo"
                 Dim prmsMae As New Dictionary(Of String, Object)
@@ -311,7 +316,7 @@ Public Class frmNovestk
                 Dim rowMae As DataRow = dtMae.Rows(0)
 
                 ' Insert into NOVESTK
-                Dim sqlInsert As String = "INSERT INTO NOVESTK (IdArticulo, Articulo, IDSUCURSAL, IdComprob, proveedor, Despacho, Fecha, CANTIDAD, valorc) " &
+                Dim sqlInsert As String = "INSERT INTO NOVESTKA (IdArticulo, Articulo, IDSUCURSAL, IdComprob, proveedor, Despacho, Fecha, CANTIDAD, valorc) " &
                                           "VALUES (@IdArticulo, @Articulo, 3, 1, @proveedor, @Despacho, @Fecha, @CANTIDAD, @valorc)"
                 Dim prmsInsert As New Dictionary(Of String, Object)
                 prmsInsert.Add("@IdArticulo", rowMae("IdArticulo"))
@@ -354,6 +359,8 @@ Public Class frmNovestk
             If frm.ShowDialog(Me) = DialogResult.OK Then
                 Dim articulo = frm.Seleccion
                 txtArticulo.Text = If(articulo IsNot Nothing, articulo.Item("Articulo").ToString(), String.Empty)
+                CmbProveedor.Text = If(articulo IsNot Nothing, articulo.Item("Proveedor").ToString(), String.Empty)
+                _idArticuloSeleccionado = If(articulo IsNot Nothing, Convert.ToInt32(articulo.Item("IdArticulo")), 0)
             End If
         End Using
     End Sub
@@ -361,7 +368,7 @@ Public Class frmNovestk
         esNuevo = True
         FormLimpiarSeleccionado()
         FormModoEdicion()
-        txtNroCuenta.Focus()
+        txtArticulo.Focus()
     End Sub
 
     Private Sub cmdModificar_Click(sender As Object, e As EventArgs) Handles cmdModificar.Click
@@ -390,6 +397,7 @@ Public Class frmNovestk
 
     Private Sub cmdCancelar_Click(sender As Object, e As EventArgs) Handles cmdCancelar.Click
         FormModoConsulta()
+        FormLimpiarSeleccionado()
         If filaActual IsNot Nothing Then FormObtenerSeleccionado()
     End Sub
 
@@ -454,16 +462,18 @@ Public Class frmNovestk
             MessageBox.Show("Error al guardar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
+    Private Sub txtValorPU_TextChanged(sender As Object, e As EventArgs) Handles txtValorPU.TextChanged
+        'si el valor ingresado es numerico, calcular el importe
+        Dim valorPU As Decimal
+        Dim cantidad As Decimal
+        If Decimal.TryParse(txtValorPU.Text, valorPU) AndAlso Decimal.TryParse(txtCantidad.Text, cantidad) Then
+            Dim importe As Decimal = valorPU * Math.Abs(cantidad)
+            txtImporte.Text = importe.ToString("F2")
+        End If
+    End Sub
     Private Function ValidarDatos() As Boolean
         If String.IsNullOrEmpty(txtArticulo.Text) Then
             MessageBox.Show("Debe ingresar un artículo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtArticulo.Focus()
-            Return False
-        End If
-
-        If _idArticuloSeleccionado = 0 Then
-            MessageBox.Show("El artículo ingresado no es válido. Por favor verifique.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             txtArticulo.Focus()
             Return False
         End If
@@ -483,13 +493,6 @@ Public Class frmNovestk
         Return True
     End Function
 
-    Private Sub Controls_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNroCuenta.KeyPress, txtFactura.KeyPress, txtNroComprobante.KeyPress, txtImporte.KeyPress, txtCantidad.KeyPress, txtValorPU.KeyPress, txtDespacho.KeyPress, txtArticulo.KeyPress, txtPV.KeyPress, CmbProveedor.KeyPress, CmbSucursal.KeyPress, CmbComprobante.KeyPress, CmbTipoVenta.KeyPress, CmbCondicion.KeyPress, CmbCanal.KeyPress, CmbViajante.KeyPress
-        If e.KeyChar = ChrW(Keys.Enter) Then
-            e.Handled = True
-            SendKeys.Send("{TAB}")
-        End If
-    End Sub
-
     Private Sub AplicarSeleccionActual()
         If dgvNovedades Is Nothing OrElse dgvNovedades.CurrentRow Is Nothing Then Return
         If dgvNovedades.SelectedRows.Count > 1 Then
@@ -506,7 +509,7 @@ Public Class frmNovestk
         filaActual = dgvNovedades.CurrentRow
         FormObtenerSeleccionado()
     End Sub
-    Private Sub txtArticulo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtArticulo.Validating
+    Private Sub ValidarArticulo()
         If String.IsNullOrEmpty(txtArticulo.Text) Then
             _idArticuloSeleccionado = 0
             lblArticuloDescripcion.Text = ""
@@ -514,38 +517,28 @@ Public Class frmNovestk
         End If
 
         Try
-            ' Check if it's numeric (IdArticulo) or Code (Articulo). VB6 used Articulo code.
-            ' Assuming txtArticulo contains the Code.
             Dim sql As String = "SELECT IdArticulo, Descripcion FROM MAESTK WHERE Articulo = @Articulo"
             Dim prms As New Dictionary(Of String, Object)
             prms.Add("@Articulo", txtArticulo.Text)
 
             Dim dt As DataTable = DSM.ExecuteQuery(DSM.Stock, sql, prms)
-            If dt.Rows.Count > 0 Then
-                _idArticuloSeleccionado = Convert.ToInt32(dt.Rows(0)("IdArticulo"))
-                lblArticuloDescripcion.Text = dt.Rows(0)("Descripcion").ToString()
-            Else
-                ' Try searching by ID if numeric
-                If IsNumeric(txtArticulo.Text) Then
-                    sql = "SELECT IdArticulo, Descripcion FROM MAESTK WHERE IdArticulo = @IdArticulo"
-                    prms.Clear()
-                    prms.Add("@IdArticulo", Convert.ToInt32(txtArticulo.Text))
-                    dt = DSM.ExecuteQuery(DSM.Stock, sql, prms)
-                    If dt.Rows.Count > 0 Then
-                        _idArticuloSeleccionado = Convert.ToInt32(dt.Rows(0)("IdArticulo"))
-                        lblArticuloDescripcion.Text = dt.Rows(0)("Descripcion").ToString()
-                    Else
-                        MessageBox.Show("Artículo no encontrado.", "Buscar", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        e.Cancel = True
-                    End If
-                Else
-                    MessageBox.Show("Artículo no encontrado.", "Buscar", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    e.Cancel = True
-                End If
+            If dt.Rows.Count <= 0 Then
+                MessageBox.Show("Artículo no encontrado.", "Buscar", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
+
+            _idArticuloSeleccionado = Convert.ToInt32(dt.Rows(0)("IdArticulo"))
+            lblArticuloDescripcion.Text = dt.Rows(0)("Descripcion").ToString()
+
         Catch ex As Exception
             MessageBox.Show("Error al buscar artículo: " & ex.Message)
         End Try
     End Sub
 
+    Private Sub txtArticulo_LostFocus(sender As Object, e As EventArgs) Handles txtArticulo.LostFocus
+        ValidarArticulo()
+    End Sub
+
+    Private Sub lnkCopiar_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkCopiar.LinkClicked
+        CopiarDataGrid(dgvNovedades, chkEncabezados.Checked)
+    End Sub
 End Class

@@ -279,11 +279,11 @@ Public Class frmNovestk
 
     Private Sub cmdBL_Click(sender As Object, e As EventArgs) Handles cmdBL.Click
         If CmbBL.Text = "" Then
-            MessageBox.Show("Debe seleccionar un BL, Preste Atención", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Debe seleccionar un BL", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
         If txtDesp.Text = "" Then
-            MessageBox.Show("Ingrese un despacho......", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Ingrese un despacho", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 

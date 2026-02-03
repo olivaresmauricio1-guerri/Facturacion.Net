@@ -123,7 +123,7 @@ Public Class MainForm
         MessageBox.Show("Recibo no implementado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
     Private Sub mnpresu_Click(sender As Object, e As EventArgs) Handles mnpresu.Click
-        MessageBox.Show("Reimprimir Comprobantes no implementado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        frmReimprimirCbte.AbrirInstancia(Me)
     End Sub
     Private Sub mnmerca_Click(sender As Object, e As EventArgs) Handles mnmerca.Click
         MessageBox.Show("Ingreso de Mercadería no implementado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)

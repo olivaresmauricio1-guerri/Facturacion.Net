@@ -96,7 +96,7 @@ Public Class MainForm
 
     ' --- Facturacion ---
     Private Sub mnfacpedi_Click(sender As Object, e As EventArgs) Handles mnfacpedi.Click
-        MessageBox.Show("Facturar Pedido no implementado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        frmFacturaPedi.AbrirInstancia(Me)
     End Sub
     Private Sub mnnota_Click(sender As Object, e As EventArgs) Handles mnnota.Click
         MessageBox.Show("Remito y Factura no implementado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)

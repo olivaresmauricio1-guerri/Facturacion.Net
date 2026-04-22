@@ -16,6 +16,11 @@ Public Module General
     Public OpcionesHabilitadas As String = ""
     Public ClaveErronea As Boolean = True
 
+    Public PruebaElec As Boolean
+    Public CuitEmpresa As String
+    Public CBUEmpresa As String
+    Public AliasEmpresa As String
+
 #If DEBUG Then
     Public ReadOnly Entorno As String = "Desarrollo"
 
@@ -50,6 +55,7 @@ Public Module General
     Public ReadOnly ReportesPath As String = SistemaINI("SISTEMA") & "\Reportes.net\Reportes.exe"
 #End If
 
+    Public propio As Long
 
     Private _SistemaINI As Dictionary(Of String, String) = Nothing
 
@@ -231,5 +237,17 @@ Public Module General
             MessageBox.Show($"Error al cargar datos de {nombreTabla}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    Public Function fncIdPropio()
+        Dim sql = "SELECT idpropiocampo FROM idpropiotabla"
+        Dim dt = DSM.ExecuteQuery(DSM.Stock, sql)
+        Dim idpropio As Long = dt.Rows(0).Item("idpropiocampo")
+        idpropio += 1
+
+        Dim sqlUpdate = "UPDATE idpropiotabla SET idpropiocampo = " & idpropio
+        DSM.Execute(DSM.Stock, sqlUpdate)
+
+        Return idpropio
+    End Function
 
 End Module

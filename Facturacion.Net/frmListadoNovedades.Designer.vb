@@ -49,7 +49,7 @@ Partial Class frmListadoNovedades
         CmdSalir.Name = "CmdSalir"
         CmdSalir.Size = New Size(88, 33)
         CmdSalir.TabIndex = 1
-        CmdSalir.Text = "Listar"
+        CmdSalir.Text = "Salir"
         CmdSalir.UseVisualStyleBackColor = False
         ' 
         ' CmdImprimir

@@ -20,11 +20,14 @@ Public Class MainForm
 
             Dim empresas = DSM.ExecuteQuery(
                DSM.Stock,
-                "SELECT Descripcion FROM Empresas WHERE Codigo = @Empresa",
+                "SELECT Descripcion, CUIT, CBU, Alias FROM Empresas WHERE Codigo = @Empresa",
                 CmdParams("@Empresa", 1))
 
             If empresas.Rows.Count > 0 Then
                 General.EmpresaActual = empresas.Rows(0)("Descripcion").ToString()
+                General.CuitEmpresa = empresas.Rows(0)("CUIT").ToString()
+                General.CBUEmpresa = empresas.Rows(0)("CBU").ToString()
+                General.AliasEmpresa = empresas.Rows(0)("Alias").ToString()
             End If
 
         Catch ex As Exception

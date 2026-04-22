@@ -122,7 +122,6 @@ Partial Class frmSesion
         TxtUsuario.Location = New Point(83, 27)
         TxtUsuario.MaxLength = 10
         TxtUsuario.Name = "TxtUsuario"
-        TxtUsuario.ReadOnly = True
         TxtUsuario.Size = New Size(134, 23)
         TxtUsuario.TabIndex = 2
         ' 

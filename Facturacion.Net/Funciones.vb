@@ -923,6 +923,12 @@ Public Module Funciones
         doc.Save(outputPath)
         doc.Close()
 
+        'Abre pdf recien creado
+        Try
+            Process.Start(New ProcessStartInfo(outputPath) With {.UseShellExecute = True})
+        Catch
+        End Try
+
         Return outputPath
     End Function
     Public Sub EliminarTemporales(Fact As Double, NroCuenta1 As Long, PV As Integer, tipocomp As Integer, Optional propio As Integer = 0)

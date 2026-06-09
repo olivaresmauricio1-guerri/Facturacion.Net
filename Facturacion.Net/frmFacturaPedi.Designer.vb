@@ -36,7 +36,6 @@ Partial Class frmFacturaPedi
         cmdVer = New Button()
         Label1 = New Label()
         PanelShape1 = New Panel()
-        Button1 = New Button()
         CType(dgvPedidos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -205,21 +204,11 @@ Partial Class frmFacturaPedi
         PanelShape1.Size = New Size(62, 66)
         PanelShape1.TabIndex = 23
         ' 
-        ' Button1
-        ' 
-        Button1.Location = New Point(12, 525)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(75, 23)
-        Button1.TabIndex = 24
-        Button1.Text = "Button1"
-        Button1.UseVisualStyleBackColor = True
-        ' 
         ' frmFacturaPedi
         ' 
         AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(745, 626)
-        Controls.Add(Button1)
         Controls.Add(PanelShape1)
         Controls.Add(optLujan)
         Controls.Add(optNqn)
@@ -260,5 +249,4 @@ Partial Class frmFacturaPedi
     Friend WithEvents cmdVer As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents PanelShape1 As System.Windows.Forms.Panel
-    Friend WithEvents Button1 As Button
 End Class

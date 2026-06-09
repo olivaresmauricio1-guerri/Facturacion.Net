@@ -1,4 +1,4 @@
-﻿Imports System.Diagnostics
+Imports System.Diagnostics
 Imports System.Windows.Forms
 Imports DSM = DataSourceManager.Lib.DataSourceManager
 
@@ -102,7 +102,7 @@ Public Class MainForm
         frmFacturaPedi.AbrirInstancia(Me)
     End Sub
     Private Sub mnnota_Click(sender As Object, e As EventArgs) Handles mnnota.Click
-        MessageBox.Show("Remito y Factura no implementado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        frmNotaVenta.AbrirInstancia(Me)
     End Sub
     Private Sub mntique_Click(sender As Object, e As EventArgs) Handles mntique.Click
         MessageBox.Show("Tique Autoshop no implementado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -197,4 +197,7 @@ Public Class MainForm
         MessageBox.Show("Ayuda no disponible", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
+    Private Sub ImagenesFaltantesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImagenesFaltantesToolStripMenuItem.Click
+        frmImagenesFaltantes.Show()
+    End Sub
 End Class

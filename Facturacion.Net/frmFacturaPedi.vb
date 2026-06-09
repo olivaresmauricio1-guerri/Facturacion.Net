@@ -10,6 +10,7 @@ Imports Microsoft.Identity.Client.Extensions
 Imports DSM = DataSourceManager.Lib.DataSourceManager
 
 Public Class frmFacturaPedi
+    Private _frmDetallePedido As frmVerPedido
     Private Shared instancia As frmFacturaPedi = Nothing
 
     ' Variables para manejo de totales y lógica fiscal
@@ -22,10 +23,11 @@ Public Class frmFacturaPedi
     Dim plazoPactado As String = ""
     Dim Expreso As String = ""
     Dim Flete As String = ""
+    Dim FCE As Boolean = False
 
     ' Simulación del objeto HASAR (Fiscal Printer) para compilación
     ' En producción, esto debe ser reemplazado por la referencia real al OCX o DLL
-    Private HASAR1 As Object = Nothing
+
 
     Public Shared Sub AbrirInstancia(mdiParent As Form)
         If instancia Is Nothing OrElse instancia.IsDisposed Then
@@ -525,7 +527,7 @@ Public Class frmFacturaPedi
                 .PuntoVenta = Convert.ToInt32(PuntoVentaActual),
                 .EsPrueba = Convert.ToBoolean(dtPV.Rows(0)("PruebaElec")),
                 .TipoComprobante = datosCliente.Tipocomp,
-                .EsFce = False,
+                .EsFce = True,
                 .NroComprobante = NroFactura,
                 .NroCuenta = NroCuenta,
                 .Cliente = datosCliente,
@@ -643,7 +645,7 @@ Public Class frmFacturaPedi
             "@Puntodeventa", PuntoVentaActual,
             "@NroFactura", NroFac,
             "@NroComprobante", NroFac,
-            "@NombreComprobante", "Factura",
+            "@NombreComprobante", If(FCE, "Factura de Credito", "Factura"),
             "@TipoVenta", plazoPactado,
             "@Condicion", plazoPactado,
             "@Valoriza", dtPedido.Rows(0)("FechaV"),
@@ -943,10 +945,21 @@ Public Class frmFacturaPedi
             Return
         End If
 
-        Using frm As New frmVerPedido()
-            frm.idPedido = id
-            frm.ShowDialog(Me)
-        End Using
+        If _frmDetallePedido Is Nothing OrElse _frmDetallePedido.IsDisposed Then
+            _frmDetallePedido = New frmVerPedido()
+            AddHandler _frmDetallePedido.FormClosed,
+                Sub(sender As Object, e As FormClosedEventArgs)
+                    _frmDetallePedido = Nothing
+                End Sub
+        End If
+
+        _frmDetallePedido.idPedido = id
+
+        If Not _frmDetallePedido.Visible Then
+            _frmDetallePedido.Show(Me)
+        Else
+            _frmDetallePedido.Activate()
+        End If
     End Sub
 
 End Class

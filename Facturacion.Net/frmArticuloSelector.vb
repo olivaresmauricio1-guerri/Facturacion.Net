@@ -104,6 +104,11 @@ Public Class frmArticuloSelector
         DgvListado.Columns("Llanta").Width = 50
         DgvListado.Columns("Llanta").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
+        DgvListado.Columns("Publico").Visible = True
+        DgvListado.Columns("Publico").HeaderText = "Precio Público"
+        DgvListado.Columns("Publico").Width = 70
+        DgvListado.Columns("Publico").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        DgvListado.Columns("Publico").DefaultCellStyle.Format = "N2"
         ConfigurarEstiloGrid(DgvListado)
 
         DgvListado.MultiSelect = False

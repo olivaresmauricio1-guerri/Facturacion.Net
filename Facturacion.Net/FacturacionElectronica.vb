@@ -48,11 +48,7 @@ Public Delegate Function EmisorComprobanteDelegate(solicitud As FESolicitudCompr
 Public Module FacturacionElectronica
 
     Public Property EmisorComprobante As EmisorComprobanteDelegate
-    Private _cuitEmisorCache As Long
-    Private Enum FEAccionError
-        Detener = 0
-        ReintentarFce = 1
-    End Enum
+
 
     Public Function ProcesarComprobanteElectronico(ByVal solicitudComun As FESolicitudComprobante) As FEResultadoProceso
         Dim resultado As New FEResultadoProceso With {
@@ -99,8 +95,15 @@ Public Module FacturacionElectronica
             Return resultado
         End If
 
-        If DeterminarAccionError(respuestaComun) <> FEAccionError.ReintentarFce Then
-            CompletarResultadoError(resultado, respuestaComun, solicitudBase)
+        If ContieneCodigoError(respuestaComun.Errores, "10016") Then
+            Dim codigoError = ObtenerCodigoError(respuestaComun)
+            CompletarResultadoError(resultado, respuestaComun, solicitudBase, codigoError)
+            Return resultado
+        End If
+
+        If Not ContieneCodigoError(respuestaComun.Errores, "10192") Then
+            Dim codigoError = ObtenerCodigoError(respuestaComun)
+            CompletarResultadoError(resultado, respuestaComun, solicitudBase, codigoError)
             Return resultado
         End If
 
@@ -125,9 +128,10 @@ Public Module FacturacionElectronica
 
         If respuestaFce.Exito Then
             CompletarResultadoExitoso(resultado, respuestaFce, solicitudFce)
-            'resultado.Mensaje = "Comprobante emitido como FCE luego de rechazo inicial."
+            FCE = True
         Else
-            CompletarResultadoError(resultado, respuestaFce, solicitudFce)
+            Dim codigoError = ObtenerCodigoError(respuestaFce)
+            CompletarResultadoError(resultado, respuestaFce, solicitudFce, codigoError)
         End If
 
         Return resultado
@@ -136,6 +140,62 @@ Public Module FacturacionElectronica
     Public Sub ConfigurarEmisorAfipWsfe()
         EmisorComprobante = AddressOf EmitirPorAfipWsfe
     End Sub
+
+    Private Function ContieneCodigoError(ByVal errores As List(Of FEErrorInfo), ByVal codigo As String) As Boolean
+        If errores Is Nothing OrElse errores.Count = 0 OrElse String.IsNullOrWhiteSpace(codigo) Then
+            Return False
+        End If
+
+        For Each er In errores
+            If er IsNot Nothing AndAlso String.Equals(er.Codigo?.Trim(), codigo.Trim(), StringComparison.OrdinalIgnoreCase) Then
+                Return True
+            End If
+        Next
+
+        Return False
+    End Function
+
+    Private Function TryRecuperarCaePorConsulta(
+        ByVal ws As ServiceSoapClient,
+        ByVal auth As ar.gov.afip.dif.fev1.FEAuthRequest,
+        ByVal ptoVta As Integer,
+        ByVal cbteTipo As Integer,
+        ByVal cbteNro As Long,
+        ByRef cae As String,
+        ByRef vto As String,
+        ByVal errores As List(Of FEErrorInfo)
+    ) As Boolean
+        cae = ""
+        vto = ""
+
+        Try
+            Dim consReq As New ar.gov.afip.dif.fev1.FECompConsultaReq With {
+                .CbteNro = cbteNro,
+                .CbteTipo = cbteTipo,
+                .PtoVta = ptoVta
+            }
+
+            Dim consResp = ws.FECompConsultar(auth, consReq)
+
+            If consResp IsNot Nothing AndAlso consResp.Errors IsNot Nothing AndAlso errores IsNot Nothing Then
+                For Each er In consResp.Errors
+                    errores.Add(New FEErrorInfo With {.Codigo = er.Code.ToString(), .Mensaje = er.Msg})
+                Next
+            End If
+
+            Dim r = consResp?.ResultGet
+            If r Is Nothing OrElse Not String.Equals(r.Resultado, "A", StringComparison.OrdinalIgnoreCase) Then
+                Return False
+            End If
+
+            cae = If(r.CodAutorizacion, "")
+            vto = If(r.FchVto, "")
+
+            Return Not String.IsNullOrWhiteSpace(cae)
+        Catch
+            Return False
+        End Try
+    End Function
 
     Private Function EmitirPorAfipWsfe(ByVal sol As FESolicitudComprobante) As FERespuestaWs
         Dim r As New FERespuestaWs With {
@@ -176,30 +236,10 @@ Public Module FacturacionElectronica
         Dim token As String = dtLogin.Rows(0)("token").ToString()
         Dim sign As String = dtLogin.Rows(0)("sign").ToString()
 
-        If _cuitEmisorCache <= 0 Then
-            Dim dtEmp As DataTable = DSM.ExecuteQuery(
-                DSM.Stock,
-                "SELECT TOP 1 CUIT FROM Empresas WHERE Codigo = @Empresa",
-                CmdParams("@Empresa", 1)
-            )
-            If dtEmp IsNot Nothing AndAlso dtEmp.Rows.Count > 0 Then
-                Dim cuitTxt As String = dtEmp.Rows(0)("CUIT").ToString()
-                If Not String.IsNullOrWhiteSpace(cuitTxt) Then
-                    _cuitEmisorCache = CLng(cuitTxt.Replace("-", ""))
-                End If
-            End If
-        End If
-
-        If _cuitEmisorCache <= 0 Then
-            r.Mensaje = "No se pudo determinar CUIT del emisor desde Empresas."
-            r.Errores.Add(New FEErrorInfo With {.Codigo = "EMP", .Mensaje = r.Mensaje})
-            Return r
-        End If
-
         Dim auth As New ar.gov.afip.dif.fev1.FEAuthRequest With {
             .Token = token,
             .Sign = sign,
-            .Cuit = _cuitEmisorCache
+            .Cuit = General.CuitEmpresa.Replace("-", "")
         }
 
         Dim endpointName As String = If(sol.EsPrueba, "ServiceSoap_HOMO", "ServiceSoap")
@@ -240,6 +280,67 @@ Public Module FacturacionElectronica
                 .CondicionIVAReceptorId = sol.Cliente.CodigoAfip
             }
 
+            If det.ImpTrib > 0 Then
+                ' AFIP exige que si ImpTrib > 0 también se envíe el array Tributos.
+                ' Se informa IIBB (Id=7) por provincia usando Cliente.IIBBPorProvincia, sin depender de la tabla IngresosBrutos.
+                Dim baseImp As Double = det.ImpNeto
+                If baseImp <= 0 Then
+                    baseImp = det.ImpTotal
+                End If
+
+                Dim tributosList As New List(Of ar.gov.afip.dif.fev1.Tributo)()
+                Dim objetivoImpTrib As Double = det.ImpTrib
+                Dim sumaImportes As Double = 0
+                Dim ultimoIndice As Integer = -1
+
+                If sol.Cliente IsNot Nothing AndAlso sol.Cliente.IIBBPorProvincia IsNot Nothing Then
+                    Dim maxProv As Integer = Math.Min(24, sol.Cliente.IIBBPorProvincia.Length - 1)
+                    For i As Integer = 1 To maxProv
+                        Dim alicuota As Double = sol.Cliente.IIBBPorProvincia(i)
+                        If alicuota > 0 Then
+                            Dim importe As Double = Math.Round(baseImp * alicuota, 2)
+                            If importe <> 0 Then
+                                Dim trib As New ar.gov.afip.dif.fev1.Tributo With {
+                                    .Id = 7,
+                                    .Desc = "Percepción de IIBB (Prov " & i.ToString("00") & ")",
+                                    .BaseImp = baseImp,
+                                    .Alic = Math.Round(alicuota * 100, 6),
+                                    .Importe = importe
+                                }
+                                tributosList.Add(trib)
+                                sumaImportes += importe
+                                ultimoIndice = tributosList.Count - 1
+                            End If
+                        End If
+                    Next
+                End If
+
+                If tributosList.Count = 0 Then
+                    Dim alic As Double = 0
+                    If baseImp > 0 Then
+                        alic = Math.Round((objetivoImpTrib / baseImp) * 100, 6)
+                    End If
+
+                    tributosList.Add(New ar.gov.afip.dif.fev1.Tributo With {
+                        .Id = 7,
+                        .Desc = "Percepción de IIBB",
+                        .BaseImp = baseImp,
+                        .Alic = alic,
+                        .Importe = objetivoImpTrib
+                    })
+                    sumaImportes = objetivoImpTrib
+                    ultimoIndice = 0
+                Else
+                    Dim diferencia As Double = Math.Round(objetivoImpTrib - sumaImportes, 2)
+                    If diferencia <> 0 AndAlso ultimoIndice >= 0 Then
+                        tributosList(ultimoIndice).Importe = Math.Round(tributosList(ultimoIndice).Importe + diferencia, 2)
+                        sumaImportes += diferencia
+                    End If
+                End If
+
+                det.Tributos = tributosList.ToArray()
+            End If
+
             If sol.EsFce Then
                 Dim fechaCbte As Date
                 If Not Date.TryParseExact(det.CbteFch, "yyyyMMdd", Global.System.Globalization.CultureInfo.InvariantCulture, Global.System.Globalization.DateTimeStyles.None, fechaCbte) Then
@@ -267,7 +368,23 @@ Public Module FacturacionElectronica
                 .FeDetReq = New ar.gov.afip.dif.fev1.FECAEDetRequest() {det}
             }
 
-            Dim resp = ws.FECAESolicitar(auth, req)
+            Dim resp As ar.gov.afip.dif.fev1.FECAEResponse = Nothing
+            Try
+                resp = ws.FECAESolicitar(auth, req)
+            Catch
+                Dim caeRec As String = ""
+                Dim vtoRec As String = ""
+                Dim erroresRec As New List(Of FEErrorInfo)()
+                If TryRecuperarCaePorConsulta(ws, auth, sol.PuntoVenta, sol.TipoComprobante, nroCbte, caeRec, vtoRec, erroresRec) Then
+                    r.Exito = True
+                    r.Cae = caeRec
+                    r.Venicimiento = vtoRec
+                    r.Mensaje = "Aprobado (recuperado por consulta)"
+                    r.Errores = New List(Of FEErrorInfo)()
+                    Return r
+                End If
+                Throw
+            End Try
 
             If resp IsNot Nothing AndAlso resp.Errors IsNot Nothing Then
                 For Each er In resp.Errors
@@ -290,6 +407,30 @@ Public Module FacturacionElectronica
                     For Each ob In detResp.Observaciones
                         r.Errores.Add(New FEErrorInfo With {.Codigo = ob.Code.ToString(), .Mensaje = ob.Msg})
                     Next
+                End If
+            End If
+
+            If ContieneCodigoError(r.Errores, "10016") Then
+                System.Windows.Forms.MessageBox.Show(
+                    "El comprobante ya fue procesado en ARCA. Haga clic en Aceptar para guardar el registro en el sistema.",
+                    "Comprobante ya procesado",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Information
+                )
+
+                Dim caeRec As String = ""
+                Dim vtoRec As String = ""
+                Dim erroresRec As New List(Of FEErrorInfo)()
+                If TryRecuperarCaePorConsulta(ws, auth, sol.PuntoVenta, sol.TipoComprobante, nroCbte, caeRec, vtoRec, erroresRec) Then
+                    r.Exito = True
+                    r.Cae = caeRec
+                    r.Venicimiento = vtoRec
+                    r.Mensaje = "Aprobado (recuperado por consulta)"
+                    r.Errores = New List(Of FEErrorInfo)()
+                    Return r
+                End If
+                If erroresRec.Count > 0 Then
+                    r.Errores.AddRange(erroresRec)
                 End If
             End If
 
@@ -339,7 +480,7 @@ Public Module FacturacionElectronica
         End If
     End Sub
 
-    Private Sub CompletarResultadoError(ByRef resultado As FEResultadoProceso, ByVal respuesta As FERespuestaWs, ByVal solicitud As FESolicitudComprobante)
+    Private Sub CompletarResultadoError(ByRef resultado As FEResultadoProceso, ByVal respuesta As FERespuestaWs, ByVal solicitud As FESolicitudComprobante, ByVal codigoError As String)
         resultado.Exito = False
         resultado.PuntoVenta = solicitud.PuntoVenta
         resultado.EsPrueba = solicitud.EsPrueba
@@ -348,7 +489,7 @@ Public Module FacturacionElectronica
         resultado.Cae = ""
         resultado.Venicimiento = ""
         resultado.CodigoAfip = solicitud.TipoComprobante
-        resultado.CodigoError = ObtenerCodigoError(respuesta)
+        resultado.CodigoError = If(codigoError, "").Trim()
         If String.IsNullOrWhiteSpace(respuesta.Mensaje) Then
             resultado.Mensaje = "AFIP rechazó el comprobante."
         Else
@@ -365,24 +506,6 @@ Public Module FacturacionElectronica
             Return ""
         End If
         Return codigo.Trim()
-    End Function
-
-    Private Function DeterminarAccionError(ByVal respuesta As FERespuestaWs) As FEAccionError
-        If respuesta Is Nothing OrElse respuesta.Errores Is Nothing Then
-            Return FEAccionError.Detener
-        End If
-
-        For Each feError In respuesta.Errores
-            If feError IsNot Nothing AndAlso String.Equals(feError.Codigo?.Trim(), "10192", StringComparison.OrdinalIgnoreCase) Then
-                Return FEAccionError.ReintentarFce
-            End If
-        Next
-
-        Return FEAccionError.Detener
-    End Function
-
-    Private Function RequiereReintentoFce(ByVal respuesta As FERespuestaWs) As Boolean
-        Return DeterminarAccionError(respuesta) = FEAccionError.ReintentarFce
     End Function
 
     Private Function ObtenerTipoComprobanteFce(ByVal tipoComprobanteNormal As Integer) As Integer

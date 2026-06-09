@@ -20,6 +20,7 @@ Public Module General
     Public CuitEmpresa As String
     Public CBUEmpresa As String
     Public AliasEmpresa As String
+    Public FCE As Boolean = False
 
 #If DEBUG Then
     Public ReadOnly Entorno As String = "Desarrollo"

@@ -1,4 +1,4 @@
-﻿Imports DSM = DataSourceManager.Lib.DataSourceManager
+Imports DSM = DataSourceManager.Lib.DataSourceManager
 Public Class frmClienteSelector
     Private tabla As New DataTable
     Private filaActual As DataGridViewRow
@@ -35,13 +35,17 @@ Public Class frmClienteSelector
     End Sub
     Private Sub gridbuscar()
         Dim texto As String = txtBuscar.Text.Trim()
-        Dim sql As String = "SELECT * FROM MaeCtaCte WHERE 1=1 AND Estado <> 'Baja' "
+        Dim sql As String = ""
         Dim parametros As New List(Of Object)
 
 
         If Not String.IsNullOrEmpty(texto) Then
+            sql = "SELECT * FROM MaeCtaCte WHERE 1=1 AND Estado = 'Corriente' "
             sql &= " AND (NroCuenta LIKE @NroCuenta OR Nombre LIKE @Nombre)"
             parametros.AddRange(New Object() {"@NroCuenta", $"%{texto}%", "@Nombre", $"%{texto.Trim()}%"})
+            sql &= " ORDER BY Nombre"
+        Else
+            sql = "SELECT TOP 100 * FROM MaeCtaCte WHERE Estado = 'Corriente' ORDER BY Nombre"
         End If
 
         Dim tabla = DSM.ExecuteQuery(DSM.Stock, sql, CmdParams(parametros.ToArray()))

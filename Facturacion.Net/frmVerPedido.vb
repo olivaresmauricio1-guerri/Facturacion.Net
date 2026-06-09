@@ -84,7 +84,7 @@ Public Class frmVerPedido
             txtfechaP.Text = Format(dt.Rows(0)("FechaPedido"), "dd/MM/yyyy")
             txtFechaE.Text = Format(dt.Rows(0)("FechaEntrega"), "dd/MM/yyyy")
             txtAutoriza.Text = dt.Rows(0)("Autoriza").ToString()
-            txtFecha.Text = Format(dt.Rows(0)("FechaAutoriza"), "dd/MM/yyyy")
+            txtFecha.Text = If(IsDBNull(dt.Rows(0)("FechaAutoriza")), "", Format(dt.Rows(0)("FechaAutoriza"), "dd/MM/yyyy"))
             txtComenta.Text = dt.Rows(0)("Comentarios").ToString()
             txtObs.Text = dt.Rows(0)("ObsvAuto").ToString()
         Catch ex As Exception

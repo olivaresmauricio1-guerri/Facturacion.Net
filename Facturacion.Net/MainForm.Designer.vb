@@ -93,6 +93,7 @@ Partial Class MainForm
         Panel3 = New ToolStripStatusLabel()
         Panel4 = New ToolStripStatusLabel()
         Timer1 = New Timer(components)
+        ImagenesFaltantesToolStripMenuItem = New ToolStripMenuItem()
         MenuStrip.SuspendLayout()
         StatusBar1.SuspendLayout()
         SuspendLayout()
@@ -332,7 +333,7 @@ Partial Class MainForm
         ' 
         ' MnuNom
         ' 
-        MnuNom.DropDownItems.AddRange(New ToolStripItem() {mnremitos})
+        MnuNom.DropDownItems.AddRange(New ToolStripItem() {mnremitos, ImagenesFaltantesToolStripMenuItem})
         MnuNom.Name = "MnuNom"
         MnuNom.Size = New Size(103, 20)
         MnuNom.Text = "&Nomencladores"
@@ -340,7 +341,7 @@ Partial Class MainForm
         ' mnremitos
         ' 
         mnremitos.Name = "mnremitos"
-        mnremitos.Size = New Size(170, 22)
+        mnremitos.Size = New Size(180, 22)
         mnremitos.Text = "Controlar Remitos"
         ' 
         ' MnuSeg
@@ -507,6 +508,12 @@ Partial Class MainForm
         ' 
         Timer1.Interval = 1000
         ' 
+        ' ImagenesFaltantesToolStripMenuItem
+        ' 
+        ImagenesFaltantesToolStripMenuItem.Name = "ImagenesFaltantesToolStripMenuItem"
+        ImagenesFaltantesToolStripMenuItem.Size = New Size(180, 22)
+        ImagenesFaltantesToolStripMenuItem.Text = "Imagenes Faltantes"
+        ' 
         ' MainForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -605,5 +612,6 @@ Partial Class MainForm
     Friend WithEvents Panel3 As ToolStripStatusLabel
     Friend WithEvents Panel4 As ToolStripStatusLabel
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents ImagenesFaltantesToolStripMenuItem As ToolStripMenuItem
 
 End Class
